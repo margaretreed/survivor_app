@@ -1,0 +1,23 @@
+[
+    {
+      "full_name": "Boston Rob",
+      "castaway_first_name": "Rob",
+      "date_of_birth": "1974-09-13",
+      "city": "Boston",
+      "state": "Massachusets"
+    },
+    {
+      "full_name": "Parvati Warvati",
+      "castaway_first_name": "Parvati",
+      "date_of_birth": "1980-10-04",
+      "city": "ParvatiCity",
+      "state": "ParvatiState"
+    },
+    {
+      "full_name": "Tony Vlachos",
+      "castaway_first_name": "Tony",
+      "date_of_birth": "1969-07-23",
+      "city": "New York City",
+      "state": "New York"
+    }
+]

@@ -1,0 +1,160 @@
+"","season_name","season","castaway_id","castaway","idol_number","idols_held","votes_nullified","day_found","day_played","legacy_advantage"
+"1","Survivor: Guatemala",11,161,"Gary","1",1,"0",24,NA,FALSE
+"2","Survivor: Panama",12,180,"Terry","1",1,"0",NA,NA,FALSE
+"3","Survivor: Cook Islands",13,202,"Yul","1",1,"0",NA,NA,FALSE
+"4","Survivor: Fiji",14,218,"Yau-Man","1",1,"4",17,36,FALSE
+"5","Survivor: Fiji",14,214,"Mookie","1",1,"0",20,NA,FALSE
+"6","Survivor: Fiji",14,215,"Alex","1",1,"0",NA,27,FALSE
+"7","Survivor: Fiji",14,221,"Earl","1",1,"0",36,37,FALSE
+"8","Survivor: China",15,237,"Todd","1",1,"0",17,NA,FALSE
+"9","Survivor: China",15,231,"James","1",2,"0",19,NA,FALSE
+"10","Survivor: Micronesia",16,235,"Amanda","1",1,"4",NA,NA,FALSE
+"11","Survivor: Micronesia",16,244,"Jason","1",1,"0",NA,NA,FALSE
+"12","Survivor: Micronesia",16,201,"Ozzy","1",1,"0",NA,NA,FALSE
+"13","Survivor: Micronesia",16,197,"Parvati","1",1,"0",NA,NA,FALSE
+"14","Survivor: Gabon",17,262,"Matty","1",1,"2",NA,NA,FALSE
+"15","Survivor: Gabon",17,258,"Randy","1",1,"0",22,NA,FALSE
+"16","Survivor: Gabon",17,263,"Sugar","1",1,"0",7,NA,FALSE
+"17","Survivor: Gabon",17,254,"Ace","1",1,"0",NA,NA,FALSE
+"18","Survivor: Tocantins",18,273,"Brendan","1",1,"0",9,NA,FALSE
+"19","Survivor: Tocantins",18,278,"Taj","1",1,"0",13,NA,FALSE
+"20","Survivor: Tocantins",18,280,"Stephen","1",1,"0",NA,NA,FALSE
+"21","Survivor: Samoa",19,300,"Russell H.","1",1,"0",4,21,FALSE
+"22","Survivor: Samoa",19,290,"Erik","1",1,"0",9,NA,FALSE
+"23","Survivor: Samoa",19,300,"Russell H.","2",1,"7",22,24,FALSE
+"24","Survivor: Samoa",19,300,"Russell H.","3",1,"0",25,NA,FALSE
+"25","Survivor: Heroes vs. Villains",20,150,"Tom","1",1,"3",10,11,FALSE
+"26","Survivor: Heroes vs. Villains",20,300,"Russell","1",1,"4",10,15,FALSE
+"27","Survivor: Heroes vs. Villains",20,197,"Parvati","1",1,"0",NA,NA,FALSE
+"28","Survivor: Heroes vs. Villains",20,281,"J.T.","1",1,"0",19,NA,FALSE
+"29","Survivor: Heroes vs. Villains",20,300,"Russell","2",1,"0",NA,NA,FALSE
+"30","Survivor: Heroes vs. Villains",20,197,"Parvati","2",1,"5",23,27,FALSE
+"31","Survivor: Heroes vs. Villains",20,197,"Parvati","3",1,"0",NA,27,FALSE
+"32","Survivor: Heroes vs. Villains",20,25,"Jerri","1",1,"0",NA,NA,FALSE
+"33","Survivor: Heroes vs. Villains",20,112,"Sandra","1",1,"0",NA,NA,FALSE
+"34","Survivor: Heroes vs. Villains",20,300,"Russell","3",1,"0",29,30,FALSE
+"35","Survivor: Heroes vs. Villains",20,112,"Sandra","2",1,"2",31,36,FALSE
+"36","Survivor: Heroes vs. Villains",20,181,"Danielle","1",0,"0",NA,NA,FALSE
+"37","Survivor: Nicaragua",21,311,"Marty","1",1,"0",6,NA,FALSE
+"38","Survivor: Nicaragua",21,319,"Sash","1",1,"1",NA,36,FALSE
+"39","Survivor: Nicaragua",21,313,"NaOnka","1",1,"0",9,NA,FALSE
+"40","Survivor: Nicaragua",21,320,"Chase","1",1,"0",NA,36,FALSE
+"41","Survivor: Redemption Island",22,324,"Kristina","1",1,"2",1,5,FALSE
+"42","Survivor: Redemption Island",22,331,"Ralph","1",1,"0",4,21,FALSE
+"43","Survivor: Redemption Island",22,55,"Boston Rob","1",1,"1",10,37,FALSE
+"44","Survivor: South Pacific",23,201,"Ozzy","1",1,"0",4,21,FALSE
+"45","Survivor: South Pacific",23,277,"Coach","1",1,"0",12,NA,FALSE
+"46","Survivor: South Pacific",23,347,"Whitney","1",0,"0",NA,NA,FALSE
+"47","Survivor: One World",24,370,"Sabrina","1",0,"0",2,NA,FALSE
+"48","Survivor: One World",24,359,"Colton","1",1,"0",NA,NA,FALSE
+"49","Survivor: One World",24,371,"Kim","1",1,"0",14,NA,FALSE
+"50","Survivor: One World",24,364,"Troyzan","1",1,"2",19,25,FALSE
+"51","Survivor: Philippines",25,196,"Jonathan","1",1,"5",4,19,FALSE
+"52","Survivor: Philippines",25,383,"Abi-Maria","1",1,"3",8,27,FALSE
+"53","Survivor: Philippines",25,384,"Malcolm","1",1,"0",11,NA,FALSE
+"54","Survivor: Philippines",25,386,"Denise","1",0,"0",NA,NA,FALSE
+"55","Survivor: Caramoan",26,394,"Reynold","1",1,"1",4,10,FALSE
+"56","Survivor: Caramoan",26,384,"Malcolm","1",1,"2",6,28,FALSE
+"57","Survivor: Caramoan",26,394,"Reynold","2",1,"0",11,NA,FALSE
+"58","Survivor: Caramoan",26,384,"Malcolm","2",1,"0",NA,25,FALSE
+"59","Survivor: Caramoan",26,384,"Malcolm","3",1,"4",28,28,FALSE
+"60","Survivor: Caramoan",26,395,"Eddie","1",1,"0",NA,NA,FALSE
+"61","Survivor: Caramoan",26,246,"Erik","1",0,"0",31,NA,FALSE
+"62","Survivor: Caramoan",26,333,"Andrea","1",1,"0",NA,NA,FALSE
+"63","Survivor: Blood vs. Water",27,274,"Tyson","1",1,"0",19,29,FALSE
+"64","Survivor: Blood vs. Water",27,274,"Tyson","2",1,"2",30,37,FALSE
+"65","Survivor: Blood vs. Water",27,10,"Gervase","1",1,"0",NA,NA,FALSE
+"66","Survivor: Cagayan",28,408,"Garrett","1",1,"0",1,NA,FALSE
+"67","Survivor: Cagayan",28,424,"Tony","1",1,"0",6,19,FALSE
+"68","Survivor: Cagayan",28,416,"LJ","1",1,"0",7,19,FALSE
+"69","Survivor: Cagayan",28,421,"Spencer","1",1,"0",20,28,FALSE
+"70","Survivor: Cagayan",28,424,"Tony","3",1,"0",28,NA,FALSE
+"71","Survivor: Cagayan",28,424,"Tony","2",1,"0",29,36,FALSE
+"72","Survivor: San Juan del Sur",29,427,"John","1",1,"0",6,NA,FALSE
+"73","Survivor: San Juan del Sur",29,439,"Keith","1",1,"3",9,26,FALSE
+"74","Survivor: San Juan del Sur",29,437,"Jon","1",1,"4",19,26,FALSE
+"75","Survivor: San Juan del Sur",29,442,"Natalie","1",1,"3",25,37,FALSE
+"76","Survivor: San Juan del Sur",29,437,"Jon","2",1,"0",27,NA,FALSE
+"77","Survivor: Worlds Apart",30,459,"Carolyn","1",1,"5",2,35,FALSE
+"78","Survivor: Worlds Apart",30,452,"Jenn","1",1,"7",9,19,FALSE
+"79","Survivor: Worlds Apart",30,460,"Mike","1",1,"4",21,32,FALSE
+"80","Survivor: Cambodia",31,429,"Kelley","1",1,"9",3,21,FALSE
+"81","Survivor: Cambodia",31,433,"Jeremy","1",1,"5",9,26,FALSE
+"82","Survivor: Cambodia",31,433,"Jeremy","2",1,"3",22,36,FALSE
+"83","Survivor: Cambodia",31,429,"Kelley","2",1,"3",28,36,FALSE
+"84","Survivor: Kaoh Rong",32,476,"Tai","1",2,"0",7,NA,FALSE
+"85","Survivor: Kaoh Rong",32,473,"Jason","1",1,"0",7,NA,FALSE
+"86","Survivor: Kaoh Rong",32,468,"Neal","1",1,"0",12,NA,FALSE
+"87","Survivor: Kaoh Rong",32,471,"Scot","1",1,"0",NA,NA,FALSE
+"88","Survivor: Millennials vs. Gen X",33,489,"Jessica","1",1,"0",1,NA,TRUE
+"89","Survivor: Millennials vs. Gen X",33,495,"David","1",1,"5",5,12,FALSE
+"90","Survivor: Millennials vs. Gen X",33,498,"Adam","1",1,"4",11,33,FALSE
+"91","Survivor: Millennials vs. Gen X",33,495,"David","2",1,"0",13,30,FALSE
+"92","Survivor: Millennials vs. Gen X",33,493,"Jay","1",1,"1",16,35,FALSE
+"93","Survivor: Millennials vs. Gen X",33,497,"Ken","1",1,"1",NA,36,TRUE
+"94","Survivor: Millennials vs. Gen X",33,498,"Adam","2",1,"0",37,37,FALSE
+"95","Survivor: Game Changers",34,456,"Sierra","1",1,NA,1,32,TRUE
+"96","Survivor: Game Changers",34,364,"Troyzan","1",1,"0",9,36,FALSE
+"97","Survivor: Game Changers",34,476,"Tai","1",1,"6",11,11,FALSE
+"98","Survivor: Game Changers",34,456,"Sierra","1",1,"0",11,NA,FALSE
+"99","Survivor: Game Changers",34,281,"J.T.","1",1,"0",12,NA,FALSE
+"100","Survivor: Game Changers",34,476,"Tai","2",1,"2",14,36,FALSE
+"101","Survivor: Game Changers",34,476,"Tai","3",1,"1",14,36,FALSE
+"102","Survivor: Game Changers",34,414,"Sarah","1",1,"3",32,36,TRUE
+"103","Survivor: Heroes vs. Healers vs. Hustlers",35,514,"Ryan","1",1,"0",1,3,FALSE
+"104","Survivor: Heroes vs. Healers vs. Hustlers",35,515,"Chrissy","1",1,"0",3,NA,FALSE
+"105","Survivor: Heroes vs. Healers vs. Hustlers",35,509,"Joe","1",1,"2",5,11,FALSE
+"106","Survivor: Heroes vs. Healers vs. Hustlers",35,512,"Mike","1",1,"2",13,24,FALSE
+"107","Survivor: Heroes vs. Healers vs. Hustlers",35,509,"Joe","2",1,"0",15,19,FALSE
+"108","Survivor: Heroes vs. Healers vs. Hustlers",35,514,"Ryan","2",1,"2",20,30,FALSE
+"109","Survivor: Heroes vs. Healers vs. Hustlers",35,516,"Ben","1",1,"6",27,33,FALSE
+"110","Survivor: Heroes vs. Healers vs. Hustlers",35,510,"Lauren","1",1,"0",31,NA,FALSE
+"111","Survivor: Heroes vs. Healers vs. Hustlers",35,516,"Ben","2",1,"0",36,36,FALSE
+"112","Survivor: Heroes vs. Healers vs. Hustlers",35,516,"Ben","3",1,"3",37,37,FALSE
+"113","Survivor: Ghost Island",36,518,"Jacob","1",1,"0",3,4,TRUE
+"114","Survivor: Ghost Island",36,535,"Domenick","1",1,"0",4,37,FALSE
+"115","Survivor: Ghost Island",36,519,"Morgan","1",1,"0",4,9,TRUE
+"116","Survivor: Ghost Island",36,528,"Michael","1",1,"0",8,12,FALSE
+"117","Survivor: Ghost Island",36,535,"Domenick","1",1,"0",9,22,TRUE
+"118","Survivor: Ghost Island",36,528,"Michael","2",1,"7",18,25,FALSE
+"119","Survivor: Ghost Island",36,536,"Wendell","1",1,"1",18,37,FALSE
+"120","Survivor: Ghost Island",36,524,"Chris","1",1,"0",20,NA,FALSE
+"121","Survivor: Ghost Island",36,532,"Donathan","1",1,"1",27,29,FALSE
+"122","Survivor: David vs. Goliath",37,546,"Dan","1",1,"2",2,22,FALSE
+"123","Survivor: David vs. Goliath",37,551,"Davie","1",1,"7",4,22,FALSE
+"124","Survivor: David vs. Goliath",37,546,"Dan","2",1,"0",15,25,FALSE
+"125","Survivor: David vs. Goliath",37,550,"Christian","1",1,"5",24,32,FALSE
+"126","Survivor: David vs. Goliath",37,556,"Nick","1",1,"0",26,35,FALSE
+"127","Survivor: David vs. Goliath",37,551,"Davie","2",1,"2",34,35,FALSE
+"128","Survivor: David vs. Goliath",37,554,"Angelina","1",1,"0",36,37,FALSE
+"129","Survivor: Edge of Extinction",38,568,"Lauren","1",1,"1",4,36,FALSE
+"130","Survivor: Edge of Extinction",38,477,"Aubry","1",1,"0",7,NA,FALSE
+"131","Survivor: Edge of Extinction",38,429,"Kelley","1",1,"0",16,NA,FALSE
+"132","Survivor: Edge of Extinction",38,560,"Rick","1",1,"1",18,23,FALSE
+"133","Survivor: Edge of Extinction",38,560,"Rick","2",1,"4",30,31,FALSE
+"134","Survivor: Edge of Extinction",38,560,"Rick","3",1,"3",32,36,FALSE
+"135","Survivor: Edge of Extinction",38,559,"Chris","1",1,"3",35,37,FALSE
+"136","Survivor: Edge of Extinction",38,560,"Rick","4",1,"0",37,37,FALSE
+"137","Survivor: Island of the Idols",39,574,"Chelsea","1",1,"0",4,NA,FALSE
+"138","Survivor: Island of the Idols",39,578,"Kellee","1",1,"5",5,19,FALSE
+"139","Survivor: Island of the Idols",39,573,"Vince","1",1,"0",7,NA,FALSE
+"140","Survivor: Island of the Idols",39,579,"Jamal","1",1,"0",9,19,FALSE
+"141","Survivor: Island of the Idols",39,589,"Dean","1",1,NA,NA,19,FALSE
+"142","Survivor: Island of the Idols",39,578,"Kellee","2",1,NA,20,NA,FALSE
+"143","Survivor: Island of the Idols",39,578,"Kellee","3",1,NA,22,NA,FALSE
+"144","Survivor: Island of the Idols",39,586,"Janet","1",1,"2",23,24,FALSE
+"145","Survivor: Island of the Idols",39,583,"Karishma","1",1,"7",25,30,FALSE
+"146","Survivor: Island of the Idols",39,587,"Lauren","1",1,"0",30,30,FALSE
+"147","Survivor: Island of the Idols",39,584,"Elaine","1",1,"0",31,32,FALSE
+"148","Survivor: Island of the Idols",39,586,"Janet","2",1,"0",33,36,FALSE
+"149","Survivor: Island of the Idols",39,589,"Dean","1",1,NA,36,NA,FALSE
+"150","Survivor: Winners at War",40,112,"Sandra","1",1,NA,3,NA,FALSE
+"151","Survivor: Winners at War",40,386,"Denise","1",1,"0",4,16,FALSE
+"152","Survivor: Winners at War",40,371,"Kim","1",1,"2",4,25,FALSE
+"153","Survivor: Winners at War",40,353,"Sophie","1",1,NA,12,NA,FALSE
+"154","Survivor: Winners at War",40,386,"Denise","2",1,"4",16,16,FALSE
+"155","Survivor: Winners at War",40,478,"Michele","1",1,"2",22,31,FALSE
+"156","Survivor: Winners at War",40,424,"Tony","1",1,"0",28,36,FALSE
+"157","Survivor: Winners at War",40,516,"Ben","1",1,"2",29,36,FALSE
+"158","Survivor: Winners at War",40,442,"Natalie","1",1,"4",35,36,FALSE
+"159","Survivor: Winners at War",40,442,"Natalie","2",1,"0",37,37,FALSE

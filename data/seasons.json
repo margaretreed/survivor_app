@@ -1,0 +1,22 @@
+[
+    {
+      "season_name": "Winners at War",
+      "season_num": "40",
+      "location_city": "FijiCity",
+      "country": "Fiji",
+      "tribe_set_up": "3 tribes of winners",
+      "winner_id": 3,
+      "filming_started": "2019-05-03",
+      "filming_ended": "2019-07-02"
+    },
+    {
+        "season_name": "Micronesia",
+        "season_num": "19",
+        "location_city": "MicronesiaCity",
+        "country": "Micronesia",
+        "tribe_set_up": "2 tribes of fan favorites vs new players",
+        "winner_id": 2,
+        "filming_started": "2007-05-03",
+        "filming_ended": "2007-07-02"
+      }
+]
