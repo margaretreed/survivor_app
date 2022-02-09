@@ -2,51 +2,54 @@
 
 from model import db, Castaway, Season, Episode, Season_Castaway, Vote_Record, Tribe_Map, connect_to_db
 
-def create_castaway(full_name, first_name, date_of_birth, city, state):
+def create_castaway(full_name, short_name, date_of_birth, gender):
     """Create and return a new castaway."""
 
     castaway = Castaway(full_name=full_name,
-                        first_name=first_name,
+                        short_name=short_name,
                         date_of_birth=date_of_birth,
-                        city=city,
-                        state=state)
+                        gender=gender)
 
     return castaway
 
-def create_season(season_num, season_name, location_city, location_country, tribe_setup, filming_started, filming_ended, winner_id):
+def create_season(season_num, season_name, location, country, tribe_setup, filming_started, filming_ended, winner_id):
     """Create and return a new season."""
     season = Season(season_num=season_num,
                     season_name=season_name,
-                    location_city=location_city,
-                    location_country=location_country,
+                    location=location,
+                    country=country,
                     tribe_setup=tribe_setup,
                     filming_started=filming_started,
                     filming_ended=filming_ended,
                     winner_id=winner_id)
-    
+
     return season
 
-def create_episode(season_id, episode_num, day_num, episode_date, num_viewers, vote_outcome):
+def create_episode(season_id, episode_num, title, day_num, episode_date, num_viewers):
     """Create and return a new episode."""
-    episode = Episode(season_id=season_id, 
+    episode = Episode(season_id=season_id,
                       episode_num=episode_num,
+                      title=title,
                       day_num=day_num,
                       episode_date=episode_date,
-                      num_viewers=num_viewers,
-                      vote_outcome=vote_outcome)
-    
+                      num_viewers=num_viewers)
+
     return episode
 
-def create_season_castaway(season_id, castaway_id, episode_voted_out, day_voted_out, order_voted_out, jury_status, finalist_status):
+def create_season_castaway(season_id, castaway_id, city, state, episode_voted_out, day_voted_out, order_voted_out, outcome_desc, jury_status, finalist_status, img_url):
     """Create and return a new season_castaway."""
     season_castaway = Season_Castaway(season_id=season_id,
                                       castaway_id=castaway_id,
+                                      city=city,
+                                      state=state,
                                       episode_voted_out=episode_voted_out,
                                       day_voted_out=day_voted_out,
                                       order_voted_out=order_voted_out,
+                                      outcome_desc=outcome_desc,
                                       jury_status=jury_status,
-                                      finalist_status=finalist_status)
-    
+                                      finalist_status=finalist_status,
+                                      img_url=img_url)
+
     return season_castaway
 
 def create_vote_record(episode_id,season_castaway_id, castaway_voted_for_id, immunity_status, vote_nullified, final_jury_vote):

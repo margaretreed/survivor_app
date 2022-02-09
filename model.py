@@ -12,13 +12,13 @@ class Castaway(db.Model):
     castaway_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True,)
-    full_name = db.Column(db.String(20), nullable=False)
-    first_name = db.Column(db.String(15), nullable=False)
+    full_name = db.Column(db.String(40), nullable=False)
+    short_name = db.Column(db.String(30), nullable=False)
     date_of_birth = db.Column(db.DateTime)
-    city = db.Column(db.String(20))
-    state = db.Column(db.String(20))
+    gender = db.column(db.String(15))
 
-    # seasons = a list of season objects won by castaway
+    # Castaway.won_seasons returns a list of season objects won by that castaway
+    won_seasons = db.relationship("Season", back_populates="winner")
     # season_castaways = a list of season_castaway objects associated with that castaway
 
     def __repr__(self):
@@ -33,51 +33,25 @@ class Season(db.Model):
                         autoincrement=True,
                         primary_key=True,)
     season_num = db.Column(db.Integer)
-    season_name = db.Column(db.String(30), nullable=False)
-    location_city = db.Column(db.String(20), nullable=False)
-    location_country = db.Column(db.String(20), nullable=False)
-    tribe_setup = db.Column(db.String(100))
+    season_name = db.Column(db.String(50), nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    country = db.Column(db.String(50), nullable=False)
+    tribe_setup = db.Column(db.String(200))
     filming_started = db.Column(db.DateTime)
     filming_ended = db.Column(db.DateTime)
     winner_id = db.Column(db.Integer, db.ForeignKey("castaways.castaway_id"))
-    
-    # episodes = a list of episode objects from that season 
+
+    # episodes = a list of episode objects from that season
     # season_castaways = a list of season_castaway objects from that season
 
 
     # Access winner via Season object to return object of castaway associated with that primary key
     # season = Season.query.get(1) --> gets a season with the primary key 1
     # season.winner --> returns the castaway object of the winner
-    winner = db.relationship("Castaway", backref="seasons")
+    winner = db.relationship("Castaway", back_populates="won_seasons")
  
     def __repr__(self):
         return f'<Season season_id={self.season_id} season_name={self.season_name}>'
-
-class Episode(db.Model):
-    """An Episode."""
-
-    __tablename__ = "episodes"
-
-    episode_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True,)
-    season_id = db.Column(db.Integer, db.ForeignKey("seasons.season_id"))
-    episode_num = db.Column(db.Integer, nullable=False)
-    day_num = db.Column(db.Integer)
-    episode_date = db.Column(db.DateTime)
-    num_viewers = db.Column(db.Integer)
-    vote_outcome = db.Column(db.String(20))
-
-    # vote_history = list of Vote_Record objects from that episode
-    # tribe_map = list of Tribe_Map objects associated with that episode
-
-    # Access season object from the episode object
-    # episode = Episode.query.get(1) --> queries the episode object with primary key as 1
-    # episode.season --> returns the season object associated with that episode
-    season = db.relationship("Season", backref="episodes")
-
-    def __repr__(self):
-        return f'<Episode episode_id={self.episode_id} vote_outcome={self.vote_outcome}>'
 
 class Season_Castaway(db.Model):
     """An association table for each season's castaways."""
@@ -89,13 +63,17 @@ class Season_Castaway(db.Model):
                         primary_key=True,)
     season_id = db.Column(db.Integer, db.ForeignKey("seasons.season_id"))
     castaway_id = db.Column(db.Integer, db.ForeignKey("castaways.castaway_id"))
+    city = db.Column(db.String(20))
+    state = db.Column(db.String(20))
     episode_voted_out = db.Column(db.Integer)
     day_voted_out = db.Column(db.Integer)
     order_voted_out = db.Column(db.Integer)
+    outcome_desc = db.Column(db.String(30))
     jury_status = db.Column(db.String(20))
     finalist_status = db.Column(db.Boolean)
+    img_url = db.Column(db.String(200))
 
-    # vote_history = list of Vote_Record objects associated with that season_castaway
+    # vote_history_voter = list of Vote_Record objects associated with that season_castaway
     # vote_for_history = list of Vote_Record objects 
     # tribe_map = list of Tribe_Map objects associated with that Season_Castaway
 
@@ -111,7 +89,34 @@ class Season_Castaway(db.Model):
     castaway = db.relationship("Castaway", backref="season_castaways")
 
     def __repr__(self):
-        return f'<Episode episode_id={self.episode_id} vote_outcome={self.vote_outcome}>'
+        return f'<Season_Castaway season_castaway_id={self.season_castaway_id} order_voted_out={self.order_voted_out}>'
+
+class Episode(db.Model):
+    """An Episode."""
+
+    __tablename__ = "episodes"
+
+    episode_id = db.Column(db.Integer,
+                        autoincrement=True,
+                        primary_key=True,)
+    season_id = db.Column(db.Integer, db.ForeignKey("seasons.season_id"))
+    episode_num = db.Column(db.Integer, nullable=False)
+    title = db.Column(db.String(100))
+    day_num = db.Column(db.Integer)
+    episode_date = db.Column(db.DateTime)
+    num_viewers = db.Column(db.Float, nullable=True)
+
+    # vote_history = list of Vote_Record objects from that episode
+    # tribe_map = list of Tribe_Map objects associated with that episode
+
+    # Access season object from the episode object
+    # episode = Episode.query.get(1) --> queries the episode object with primary key as 1
+    # episode.season --> returns the season object associated with that episode
+    season = db.relationship("Season", backref="episodes")
+
+
+    def __repr__(self):
+        return f'<Episode episode_id={self.episode_id} title={self.title}>'
 
 class Vote_Record(db.Model):
     """A record of how a castaway votes each episode."""
@@ -137,13 +142,13 @@ class Vote_Record(db.Model):
     # Access season_castaway object from the Vote_Record object
     # vote_record = Vote_Record.query.get(1) --> queries the vote_record object with primary key as 1
     # vote_record.season_castaway--> returns the season_castaway object associated with that vote_record
-    season_castaway = db.relationship("Season_Castaway", backref="vote_history")
+    season_castaway = db.relationship("Season_Castaway", foreign_keys="Vote_Record.season_castaway_id", backref="vote_history_voter")
 
     # DO I EVEN NEED THIS RELATIONSHIP?
     # Access season_castaway object of the person voted for from the Vote_Record object
     # vote_record = Vote_Record.query.get(1) --> queries the vote_record object with primary key as 1
     # vote_record.season_castaway_voted_for--> returns the season_castaway object associated with who was voted for in that vote_record
-    season_castaway_voted_for = db.relationship("Season_Castaway", backref="vote_for_history")
+    castaway_voted_for = db.relationship("Season_Castaway", foreign_keys="Vote_Record.castaway_voted_for_id", backref="vote_history_votee")
 
     def __repr__(self):
         return f'<Vote_Record vote_record_id={self.vote_record_id} castaway_voted_for_id={self.castaway_voted_for_id}>'
@@ -170,7 +175,7 @@ class Tribe_Map(db.Model):
     # Access Season_Castaway object from the Tribe_Map object
     # tribe_map = Trib_Map.query.get(1) --> queries the Tribe_Map object with primary key as 1
     # tribe_map.season_castaway--> returns the season_castaway object associated with that tribe_map
-    episode = db.relationship("Season_Castaway", backref="tribe_map")
+    season_castaway = db.relationship("Season_Castaway", backref="tribe_map")
 
 
     def __repr__(self):
