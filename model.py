@@ -102,7 +102,6 @@ class Episode(db.Model):
     season_id = db.Column(db.Integer, db.ForeignKey("seasons.season_id"))
     episode_num = db.Column(db.Integer, nullable=False)
     title = db.Column(db.String(100))
-    day_num = db.Column(db.Integer)
     episode_date = db.Column(db.DateTime)
     num_viewers = db.Column(db.Float, nullable=True)
 
@@ -131,6 +130,7 @@ class Vote_Record(db.Model):
     castaway_voted_for_id = db.Column(db.Integer, db.ForeignKey("season_castaways.season_castaway_id"))
     immunity_status = db.Column(db.String(20))
     vote_nullified = db.Column(db.Boolean)
+    vote_desc = db.Column(db.String(20))
     final_jury_vote = db.Column(db.Boolean)
 
     # Access episode object from the Vote_Record object

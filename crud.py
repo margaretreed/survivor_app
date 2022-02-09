@@ -25,12 +25,11 @@ def create_season(season_num, season_name, location, country, tribe_setup, filmi
 
     return season
 
-def create_episode(season_id, episode_num, title, day_num, episode_date, num_viewers):
+def create_episode(season_id, episode_num, title, episode_date, num_viewers):
     """Create and return a new episode."""
     episode = Episode(season_id=season_id,
                       episode_num=episode_num,
                       title=title,
-                      day_num=day_num,
                       episode_date=episode_date,
                       num_viewers=num_viewers)
 
@@ -52,13 +51,14 @@ def create_season_castaway(season_id, castaway_id, city, state, episode_voted_ou
 
     return season_castaway
 
-def create_vote_record(episode_id,season_castaway_id, castaway_voted_for_id, immunity_status, vote_nullified, final_jury_vote):
+def create_vote_record(episode_id,season_castaway_id, castaway_voted_for_id, immunity_status, vote_nullified, vote_desc, final_jury_vote):
     """Create and return a new vote record."""
     vote_record = Vote_Record(episode_id=episode_id,
                               season_castaway_id=season_castaway_id,
                               castaway_voted_for_id=castaway_voted_for_id,
                               immunity_status=immunity_status,
                               vote_nullified=vote_nullified,
+                              vote_desc=vote_desc,
                               final_jury_vote=final_jury_vote)
     
     return vote_record

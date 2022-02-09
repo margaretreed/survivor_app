@@ -111,7 +111,12 @@ model.db.session.add_all(season_castaways_in_db)
 model.db.session.commit()
 
 #create episodes table
-viewers_df = pd.read_csv('data/viewers.csv', usecols=["season","episode","episode_title","episode_date","viewers"])
+
+viewers_df = pd.read_csv('data/viewers.csv', usecols=["season",
+                                                        "episode",
+                                                        "episode_title",
+                                                        "episode_date",
+                                                        "viewers"])
 
 episodes_in_db = []
 
@@ -126,11 +131,73 @@ for index, row in viewers_df.iterrows():
     #print(type(num_viewers))
 
     created_episode = crud.create_episode(season_id, episode_num, title, episode_date, num_viewers)
+
     episodes_in_db.append(created_episode)
 
-print(episodes_in_db)
 model.db.session.add_all(episodes_in_db)
 model.db.session.commit()
 
 #create vote_history table
+vote_history_df = pd.read_csv('data/vote_history.csv', usecols=["season",
+                                                        "episode",
+                                                        "castaway_id",
+                                                        "vote_id",
+                                                        "immunity",
+                                                        "nullified",
+                                                        "vote",
+                                                        "jury_vote"])
+
+vote_records_in_db = []
+
+for index, row in vote_history_df.iterrows():
+    season_num = row['season']
+    season = model.Season.query.get(season_num)
+    season_id = season.season_id
+
+    episode = row['episode']
+    episode_id = model.db.session.query(model.Episode).join(model.Season).filter(model.Season.season_num==season_num, model.Episode.episode_num==episode).all()
+    # print(episode_id[0].episode_num)
+    castaway_id = row["castaway_id"]
+
+    #querying for all season_castaway objects with matching castaway_id and season_id
+    #getting results with two castaway_season records for castaways that were voted out then came back in a later episode
+    season_castaway_list = model.Season_Castaway.query.filter(model.Season_Castaway.castaway_id==castaway_id, model.Season_Castaway.season_id==season_num).all()
+    
+    # if episode of vote_record <= episode_voted_out of the season_castaway object 
+    # then current season_castaway object is the castaway id of that vote_record
+    for season_castaway in season_castaway_list:
+        if episode_id[0].episode_num <= season_castaway.episode_voted_out:
+            season_castaway_id = season_castaway
+
+    castaway_voted_for = row['vote_id']
+    #results of this query produce multiple season_castaways if a castaway was voted out then came back at a later episode, 
+    #and produces 0 results for various reasons a season_castaway was unable to cast a vote- see vote description for more info
+    castaway_voted_for_list = model.Season_Castaway.query.filter(model.Season_Castaway.castaway_id==castaway_voted_for, model.Season_Castaway.season_id==season_num).all()
+    for castaway_voted_for_item in castaway_voted_for_list:
+        if not castaway_voted_for_item:
+            castaway_voted_for_id = None
+            print(castaway_voted_for_id)
+        if episode_id[0].episode_num <= castaway_voted_for_item.episode_voted_out:
+            castaway_voted_for_id = castaway_voted_for_item
+    
+    # print(castaway_voted_for_id)
+    immunity_status = row['immunity']
+    vote_nullified = row['nullified']
+    vote_desc = row['vote']
+    final_jury_vote = ['jury_vote']
+
+    created_vote_record = crud.create_vote_record(episode_id,
+                                                    season_castaway_id,
+                                                    castaway_voted_for_id,
+                                                    immunity_status,
+                                                    vote_nullified,
+                                                    vote_desc,
+                                                    final_jury_vote)
+
+    vote_records_in_db.append(created_vote_record)
+
+# print(vote_records_in_db)
+model.db.session.add_all(vote_records_in_db)
+model.db.session.commit()
+
 #create tribe_mapping table
