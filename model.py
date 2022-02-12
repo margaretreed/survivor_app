@@ -182,11 +182,13 @@ class Tribe_Map(db.Model):
         return f'<Tribe_Map tribe_map_id={self.tribe_map_id} tribe_name={self.tribe_name}>'
 
 
-def connect_to_db(app, db_uri="postgresql:///survivor"):
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db.app = app
-    db.init_app(app)
+def connect_to_db(flask_app, db_uri="postgresql:///survivor", echo=True):
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = echo
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+    db.app = flask_app
+    db.init_app(flask_app)
 
     print("Connected to the db!")
 

@@ -294,6 +294,6 @@ for index, row in tribe_mapping_df.iterrows():
 
 #model.Vote_Record.query.filter(model.Vote_Record.final_jury_vote==True).all()
 
-print(tribe_maps_in_db)
+# print(tribe_maps_in_db)
 model.db.session.add_all(tribe_maps_in_db)
 model.db.session.commit()

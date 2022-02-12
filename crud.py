@@ -76,7 +76,10 @@ def create_tribe_map(season_castaway_id, episode_id, tribe_name, tribe_status):
 def return_all_seasons():
     return Season.query.all()
 
+def return_season_details(season_num):
+    return Season.query.get(season_num)
 
+# def return_episodes_in_season(season_num):
 
 if __name__ == '__main__':
     from server import app
