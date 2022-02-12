@@ -15,7 +15,7 @@ class Castaway(db.Model):
     full_name = db.Column(db.String(40), nullable=False)
     short_name = db.Column(db.String(30), nullable=False)
     date_of_birth = db.Column(db.DateTime)
-    gender = db.column(db.String(15))
+    gender = db.Column(db.String(15))
 
     # Castaway.won_seasons returns a list of season objects won by that castaway
     won_seasons = db.relationship("Season", back_populates="winner")

@@ -51,11 +51,11 @@ def create_season_castaway(season_id, castaway_id, city, state, episode_voted_ou
 
     return season_castaway
 
-def create_vote_record(episode_id,season_castaway_id, castaway_voted_for_id, immunity_status, vote_nullified, vote_desc, final_jury_vote):
+def create_vote_record(episode, season_castaway, castaway_voted_for, immunity_status, vote_nullified, vote_desc, final_jury_vote):
     """Create and return a new vote record."""
-    vote_record = Vote_Record(episode_id=episode_id,
-                              season_castaway_id=season_castaway_id,
-                              castaway_voted_for_id=castaway_voted_for_id,
+    vote_record = Vote_Record(episode=episode,
+                              season_castaway=season_castaway,
+                              castaway_voted_for=castaway_voted_for,
                               immunity_status=immunity_status,
                               vote_nullified=vote_nullified,
                               vote_desc=vote_desc,
