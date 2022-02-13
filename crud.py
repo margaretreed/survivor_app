@@ -91,6 +91,17 @@ def return_episode(season_num, episode_num):
     episode = db.session.query(Episode).join(Season).filter(Season.season_num==season_num, Episode.episode_num==episode_num).first()
     return episode
 
+def return_season_castaways_in_season(season_num):
+    season = Season.query.get(season_num)
+    return season.season_castaways
+
+def get_votes_by_episode(season_num, episode_num):
+    episode = return_episode(season_num, episode_num)
+    vote_records = Vote_Record.query.filter(Vote_Record.episode_id==episode.episode_id).all()
+
+    return vote_records
+
+
 def get_previous_seasons_of_castaways(season_num):
     """Returns dictionary of seasons as keys, and castaways that appear in those seasons as values"""
     season = Season.query.get(season_num)

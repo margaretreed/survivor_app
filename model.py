@@ -151,7 +151,7 @@ class Vote_Record(db.Model):
     castaway_voted_for = db.relationship("Season_Castaway", foreign_keys="Vote_Record.castaway_voted_for_id", backref="vote_history_votee")
 
     def __repr__(self):
-        return f'<Vote_Record vote_record_id={self.vote_record_id} castaway_voted_for_id={self.castaway_voted_for_id}>'
+        return f'<Vote_Record vote_record_id={self.vote_record_id} season_castaway_id={self.season_castaway_id} castaway_voted_for_id={self.castaway_voted_for_id}>'
 
 class Tribe_Map(db.Model):
     """A record of how a castaway votes each episode."""

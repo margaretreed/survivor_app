@@ -4,11 +4,28 @@
     <h1>Season {{ season.season_id }}<h1>
     <h1>Episode {{ episode.episode_num }}</h1>
 
+    <div class="season_castaways">
+        {% for season_castaway in season_castaways %}
+        <img src="{{ season_castaway.img_url }}" width="250px">
+        <h4>{{ season_castaway.castaway.short_name }}</h4>
+        <h5>Full Name: {{ season_castaway.castaway.full_name }}</h5>
+            {% for vote in vote_records %}
+                {% if vote.castaway_voted_for and vote.season_castaway_id == season_castaway.season_castaway_id %}
+                    <h5>Voted For: {{ vote.castaway_voted_for.castaway.short_name }}</h5>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
     <div class="episode_links">
         {% for episode in episodes %}
         <a href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
         {% endfor %}
     </div>
+
+
+
+
 
 
 {% endblock %}

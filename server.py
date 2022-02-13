@@ -36,8 +36,10 @@ def episode_page(season_num, episode_num):
     season = crud.return_season_details(season_num)
     episodes = crud.return_episodes_in_season(season_num)
     episode = crud.return_episode(season_num, episode_num)
+    season_castaways = crud.return_season_castaways_in_season(season_num)
+    vote_records = crud.get_votes_by_episode(season_num, episode_num)
 
-    return render_template('episode.html', seasons=all_seasons, season_num=season_num, episodes=episodes, season=season, episode=episode)
+    return render_template('episode.html', seasons=all_seasons, season_num=season_num, episodes=episodes, season=season, episode=episode, season_castaways=season_castaways, vote_records=vote_records)
 
 if __name__ == "__main__":
     connect_to_db(app)
