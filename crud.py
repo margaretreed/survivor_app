@@ -74,12 +74,50 @@ def create_tribe_map(season_castaway_id, episode_id, tribe_name, tribe_status):
 
 
 def return_all_seasons():
+    """Return all seasons in the db"""
     return Season.query.all()
 
 def return_season_details(season_num):
-    return Season.query.get(season_num)
+     """Return a season object by it's season number"""
+     return Season.query.get(season_num)
 
-# def return_episodes_in_season(season_num):
+def return_episodes_in_season(season_num):
+    """Return all episodes in a season"""
+    season = Season.query.get(season_num)
+    return season.episodes
+
+def return_episode(season_num, episode_num):
+    """Return an episode"""
+    episode = db.session.query(Episode).join(Season).filter(Season.season_num==season_num, Episode.episode_num==episode_num).first()
+    return episode
+
+def get_previous_seasons_of_castaways(season_num):
+    """Returns dictionary of seasons as keys, and castaways that appear in those seasons as values"""
+    season = Season.query.get(season_num)
+    
+    # query all seasons that castaway id appears where season_num is less than season parameter
+    
+    previous_seasons_with_castaways = {}
+
+    # all season_castaways in current season
+    season_castaways = season.season_castaways
+
+    for season_castaway in season_castaways:
+        # get castaway object associated with that season_castaway
+        castaway = season_castaway.castaway
+        # get all season_castaway objects associated with that castaway
+        season_castaways_by_castaway_id = castaway.season_castaways
+
+        for season_castaway_by_castaway_id in season_castaways_by_castaway_id:
+            if season_castaway_by_castaway_id.season_id < int(season_num):
+                # add season as key and list of castaway objects as value to the dict
+                if season_castaway_by_castaway_id.season_id not in previous_seasons_with_castaways:
+                    previous_seasons_with_castaways[season_castaway_by_castaway_id.season_id] = [season_castaway_by_castaway_id.castaway]
+                else:
+                    previous_seasons_with_castaways[season_castaway_by_castaway_id.season_id].append(season_castaway_by_castaway_id.castaway)
+
+    return previous_seasons_with_castaways
+    
 
 if __name__ == '__main__':
     from server import app

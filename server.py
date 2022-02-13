@@ -24,11 +24,20 @@ def season_page(season_num):
     """View Season Page."""
     all_seasons = crud.return_all_seasons()
     season = crud.return_season_details(season_num)
-    # episodes = crud.return_episodes_in_season(season_num)
+    episodes = crud.return_episodes_in_season(season_num)
+    previous_seasons_of_castaways= crud.get_previous_seasons_of_castaways(season_num)
 
-    #query for season name, location, tribe set up, winner
-    #query for all episodes in that season
-    return render_template('season.html', seasons=all_seasons, season_num=season_num, season=season)
+    return render_template('season.html', seasons=all_seasons, season_num=season_num, season=season, episodes=episodes, previous_seasons_of_castaways=previous_seasons_of_castaways)
+
+@app.route('/episode/<season_num>/<episode_num>')
+def episode_page(season_num, episode_num):
+    """View Episode Page."""
+    all_seasons = crud.return_all_seasons()
+    season = crud.return_season_details(season_num)
+    episodes = crud.return_episodes_in_season(season_num)
+    episode = crud.return_episode(season_num, episode_num)
+
+    return render_template('episode.html', seasons=all_seasons, season_num=season_num, episodes=episodes, season=season, episode=episode)
 
 if __name__ == "__main__":
     connect_to_db(app)

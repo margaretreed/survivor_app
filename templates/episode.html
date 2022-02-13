@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <h1>Welcome!</h1>
+    <h1>Season {{ season.season_id }}<h1>
+    <h1>Episode {{ episode.episode_num }}</h1>
 
-  <h2>Navigation</h2>
-  <ul>
-    <li><a href="/movies">View all movies</a></li>
-    <li><a href="/users">View all users</a></li>
-  </ul>
+    <div class="episode_links">
+        {% for episode in episodes %}
+        <a href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
+        {% endfor %}
+    </div>
+
+
 {% endblock %}
