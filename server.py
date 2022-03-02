@@ -1,6 +1,6 @@
 """Server for survivor app."""
 
-from flask import Flask, render_template, request, flash, session, redirect
+from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, db
 import crud
 
@@ -12,7 +12,6 @@ app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
 
-# Replace this with routes and view functions!
 @app.route('/')
 def homepage():
     """View homepage."""
@@ -38,8 +37,17 @@ def episode_page(season_num, episode_num):
     episode = crud.return_episode(season_num, episode_num)
     season_castaways = crud.return_season_castaways_in_season(season_num)
     vote_records = crud.get_votes_by_episode(season_num, episode_num)
+    vote_record_dict = crud.convert_voted_for_data(vote_records, season_castaways)
 
-    return render_template('episode.html', seasons=all_seasons, season_num=season_num, episodes=episodes, season=season, episode=episode, season_castaways=season_castaways, vote_records=vote_records)
+    return render_template('episode.html', seasons=all_seasons,
+                                            season_num=season_num,
+                                            episodes=episodes,
+                                            season=season,
+                                            episode=episode,
+                                            season_castaways=season_castaways,
+                                            vote_records=vote_records,
+                                            vote_record_dict = jsonify(vote_record_dict)
+                                            )
 
 if __name__ == "__main__":
     connect_to_db(app)

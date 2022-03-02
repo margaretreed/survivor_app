@@ -128,8 +128,52 @@ def get_previous_seasons_of_castaways(season_num):
                     previous_seasons_with_castaways[season_castaway_by_castaway_id.season_id].append(season_castaway_by_castaway_id.castaway)
 
     return previous_seasons_with_castaways
-    
 
-if __name__ == '__main__':
-    from server import app
-    connect_to_db(app)
+def convert_voted_for_data(vote_records, season_castaways):
+    """Returns dictionary with nodes and links as keys.
+         
+         {
+             "nodes": [
+                 {"id": "Tony"},
+                 {"id": "Sarah"}
+                 {"id": "Jake"}
+             ],
+             "links": [
+                 {"source": "Tony", "target": "Sarah"},
+                 {"source": "Sarah", "target": "Tony"},
+                 {"source": "Jake", "target": "Sarah"}
+             ]
+         }
+    """
+    # using season_castaways to add a node for every castaway in that season,
+    # rather than vote_records since some castaways may not have recorded a vote that episode
+    castaway_nodes = []
+    for season_castaway in season_castaways:
+        new_node = {}
+        new_node["id"] = season_castaway.castaway.short_name
+        castaway_nodes.append(new_node)
+    
+    # loop through list of vote records and append each name as a node
+    # once (may have <1 vote records for revotes or special votes)
+    vote_links = []
+    for vote in vote_records:
+        new_link = {}
+        new_link["source"] = vote.season_castaway.castaway.short_name
+        new_link["target"] = vote.castaway_voted_for.castaway.short_name
+        vote_links.append(new_link)
+
+    vote_records_dictionary = {
+                                "nodes": castaway_nodes,
+                                "links": vote_links
+                              }
+
+    return vote_records_dictionary
+
+        
+
+
+
+
+
+
+    

@@ -144,7 +144,6 @@ class Vote_Record(db.Model):
     # vote_record.season_castaway--> returns the season_castaway object associated with that vote_record
     season_castaway = db.relationship("Season_Castaway", foreign_keys="Vote_Record.season_castaway_id", backref="vote_history_voter")
 
-    # DO I EVEN NEED THIS RELATIONSHIP?
     # Access season_castaway object of the person voted for from the Vote_Record object
     # vote_record = Vote_Record.query.get(1) --> queries the vote_record object with primary key as 1
     # vote_record.season_castaway_voted_for--> returns the season_castaway object associated with who was voted for in that vote_record
@@ -192,7 +191,3 @@ def connect_to_db(flask_app, db_uri="postgresql:///survivor", echo=True):
 
     print("Connected to the db!")
 
-
-if __name__ == "__main__":
-    from server import app
-    connect_to_db(app, echo=False)
