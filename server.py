@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, db
 import crud
+import json
 
 from jinja2 import StrictUndefined
 
@@ -28,6 +29,14 @@ def season_page(season_num):
 
     return render_template('season.html', seasons=all_seasons, season_num=season_num, season=season, episodes=episodes, previous_seasons_of_castaways=previous_seasons_of_castaways)
 
+@app.route('/episode')
+def get_vote_data():
+    with open('data/miserables.json', encoding="utf8") as json_file:
+        data = json.load(json_file)
+
+    return jsonify(data)
+
+
 @app.route('/episode/<season_num>/<episode_num>')
 def episode_page(season_num, episode_num):
     """View Episode Page."""
@@ -45,8 +54,8 @@ def episode_page(season_num, episode_num):
                                             season=season,
                                             episode=episode,
                                             season_castaways=season_castaways,
-                                            vote_records=vote_records,
-                                            vote_record_dict = jsonify(vote_record_dict)
+                                            vote_records=vote_records
+                                            # vote_record_dict = jsonify(vote_record_dict),
                                             )
 
 if __name__ == "__main__":
