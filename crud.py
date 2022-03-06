@@ -134,14 +134,14 @@ def convert_voted_for_data(vote_records, season_castaways):
          
          {
              "nodes": [
-                 {"id": "Tony"},
-                 {"id": "Sarah"}
-                 {"id": "Jake"}
+                 {"name": "Tony", "n": 1, "grp": 1, "id": "Tony"},
+                 {"name": "Sarah", "n": 1, "grp": 1, "id": "Sarah"}
+                 {"name": "Jake", "n": 1, "grp": 1, "id": "Jake"}
              ],
              "links": [
-                 {"source": "Tony", "target": "Sarah"},
-                 {"source": "Sarah", "target": "Tony"},
-                 {"source": "Jake", "target": "Sarah"}
+                 {"source": "Tony", "target": "Sarah", "value": 1},
+                 {"source": "Sarah", "target": "Tony", "value": 1},
+                 {"source": "Jake", "target": "Sarah", "value": 1}
              ]
          }
     """
@@ -150,6 +150,9 @@ def convert_voted_for_data(vote_records, season_castaways):
     castaway_nodes = []
     for season_castaway in season_castaways:
         new_node = {}
+        new_node["name"] = season_castaway.castaway.short_name
+        new_node["n"] = 1
+        new_node["grp"] = 1
         new_node["id"] = season_castaway.castaway.short_name
         castaway_nodes.append(new_node)
     
@@ -160,6 +163,7 @@ def convert_voted_for_data(vote_records, season_castaways):
         new_link = {}
         new_link["source"] = vote.season_castaway.castaway.short_name
         new_link["target"] = vote.castaway_voted_for.castaway.short_name
+        new_link["value"] = 1
         vote_links.append(new_link)
 
     vote_records_dictionary = {

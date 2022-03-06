@@ -12,7 +12,6 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-
 @app.route('/')
 def homepage():
     """View homepage."""
@@ -29,13 +28,13 @@ def season_page(season_num):
 
     return render_template('season.html', seasons=all_seasons, season_num=season_num, season=season, episodes=episodes, previous_seasons_of_castaways=previous_seasons_of_castaways)
 
-@app.route('/episode')
-def get_vote_data():
-    with open('data/miserables.json', encoding="utf8") as json_file:
-        data = json.load(json_file)
+@app.route('/episode-data/<season_num>/<episode_num>')
+def get_vote_data(season_num, episode_num):
+    vote_records = crud.get_votes_by_episode(season_num, episode_num)
+    season_castaways = crud.return_season_castaways_in_season(season_num)
+    vote_record_dict = crud.convert_voted_for_data(vote_records, season_castaways)
 
-    return jsonify(data)
-
+    return jsonify(vote_record_dict)
 
 @app.route('/episode/<season_num>/<episode_num>')
 def episode_page(season_num, episode_num):
@@ -46,17 +45,19 @@ def episode_page(season_num, episode_num):
     episode = crud.return_episode(season_num, episode_num)
     season_castaways = crud.return_season_castaways_in_season(season_num)
     vote_records = crud.get_votes_by_episode(season_num, episode_num)
-    vote_record_dict = crud.convert_voted_for_data(vote_records, season_castaways)
+    
+    episode_num = episode_num
+    season_num = season_num
 
     return render_template('episode.html', seasons=all_seasons,
-                                            season_num=season_num,
-                                            episodes=episodes,
-                                            season=season,
-                                            episode=episode,
-                                            season_castaways=season_castaways,
-                                            vote_records=vote_records
-                                            # vote_record_dict = jsonify(vote_record_dict),
-                                            )
+                                                season_num=season_num,
+                                                episode_num=episode_num,
+                                                episodes=episodes,
+                                                season=season,
+                                                episode=episode,
+                                                season_castaways=season_castaways,
+                                                vote_records=vote_records
+                                                )
 
 if __name__ == "__main__":
     connect_to_db(app)

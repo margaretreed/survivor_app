@@ -17,9 +17,9 @@
         {% endfor %}
     </div>
 
-    <p>{{ vote_record_dict }}</p>
+    <p id="vote_record_data"></p>
 
-    <svg></svg>
+    <div id="my_dataviz"></div>
 
     <div class="episode_links">
         {% for episode in episodes %}
@@ -27,150 +27,143 @@
         {% endfor %}
     </div>
 
-  <script>
-    chart = {
-    const svg = d3.select(DOM.svg(width, height));
+    <script>
+      const season_num = JSON.parse({{ season_num | tojson }})
+      const episode_num = JSON.parse({{ episode_num | tojson }})
 
-    svg.append("style").text(`
+      const season_num_str = JSON.stringify(season_num)
+      const episode_num_str = JSON.stringify(episode_num)
 
-  .hover path {
-    stroke: #ccc;
-  }
+      document.querySelector('#vote_record_data').innerText = episode_num_str;
 
-  .hover text {
-    fill: #ccc;
-  }
 
-  .hover g.primary text {
-    fill: black;
-    font-weight: bold;
-  }
+    // fetch('/episode')
+    //   .then(response => response.json())
+    //   .then(voteRecordData => {
+    //     document.querySelector('#vote_record_data').innerText = JSON.stringify(voteRecordData);
+    //   });
 
-  .hover g.secondary text {
-    fill: #333;
-  }
-
-  .hover path.primary {
-    stroke: #333;
-    stroke-opacity: 1;
-  }
-
-  `);
-
-    const label = svg.append("g")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .attr("text-anchor", "end")
-      .selectAll("g")
-      .data(graph.nodes)
-      .join("g")
-        .attr("transform", d => `translate(${margin.left},${d.y = y(d.id)})`)
-        .call(g => g.append("text")
-            .attr("x", -6)
-            .attr("dy", "0.35em")
-            .attr("fill", d => d3.lab(color(d.group)).darker(2))
-            .text(d => d.id))
-        .call(g => g.append("circle")
-            .attr("r", 3)
-            .attr("fill", d => color(d.group)));
-
-    const path = svg.insert("g", "*")
-        .attr("fill", "none")
-        .attr("stroke-opacity", 0.6)
-        .attr("stroke-width", 1.5)
-      .selectAll("path")
-      .data(graph.links)
-      .join("path")
-        .attr("stroke", d => d.source.group === d.target.group ? color(d.source.group) : "#aaa")
-        .attr("d", arc);
-
-    const overlay = svg.append("g")
-        .attr("fill", "none")
-        .attr("pointer-events", "all")
-      .selectAll("rect")
-      .data(graph.nodes)
-      .join("rect")
-        .attr("width", margin.left + 40)
-        .attr("height", step)
-        .attr("y", d => y(d.id) - step / 2)
-        .on("mouseover", d => {
-          svg.classed("hover", true);
-          label.classed("primary", n => n === d);
-          label.classed("secondary", n => n.sourceLinks.some(l => l.target === d) || n.targetLinks.some(l => l.source === d));
-          path.classed("primary", l => l.source === d || l.target === d).filter(".primary").raise();
-        })
-        .on("mouseout", d => {
-          svg.classed("hover", false);
-          label.classed("primary", false);
-          label.classed("secondary", false);
-          path.classed("primary", false).order();
+      // set the dimensions and margins of the graph
+      var margin = {top: 0, right: 30, bottom: 50, left: 60},
+        width = 650 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+      
+      // append the svg object to the body of the page
+      var svg = d3.select("#my_dataviz")
+        .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+      
+      // Read data
+      d3.json(`/episode-data/${season_num}/${episode_num}`, function( data) {
+      
+        // List of node names
+        var allNodes = data.nodes.map(function(d){return d.name})
+      
+        // List of groups
+        var allGroups = data.nodes.map(function(d){return d.grp})
+        allGroups = [...new Set(allGroups)]
+      
+        // A color scale for groups:
+        var color = d3.scaleOrdinal()
+          .domain(allGroups)
+          .range(d3.schemeSet3);
+      
+        // A linear scale for node size
+        var size = d3.scaleLinear()
+          .domain([1,10])
+          .range([2,10]);
+      
+        // A linear scale to position the nodes on the X axis
+        var x = d3.scalePoint()
+          .range([0, width])
+          .domain(allNodes)
+      
+        // In my input data, links are provided between nodes -id-, NOT between node names.
+        // So I have to do a link between this id and the name
+        var idToNode = {};
+        data.nodes.forEach(function (n) {
+          idToNode[n.id] = n;
         });
-
-    function update() {
-      y.domain(graph.nodes.sort(viewof order.value).map(d => d.id));
-
-      const t = svg.transition()
-          .duration(750);
-
-      label.transition(t)
-          .delay((d, i) => i * 20)
-          .attrTween("transform", d => {
-            const i = d3.interpolateNumber(d.y, y(d.id));
-            return t => `translate(${margin.left},${d.y = i(t)})`;
-          });
-
-      path.transition(t)
-          .duration(750 + graph.nodes.length * 20)
-          .attrTween("d", d => () => arc(d));
-
-      overlay.transition(t)
-          .delay((d, i) => i * 20)
-          .attr("y", d => y(d.id) - step / 2);
-    }
-
-    viewof order.addEventListener("input", update);
-    invalidation.then(() => viewof order.removeEventListener("input", update));
-
-    return svg.node();
-  }
-  function arc(d) {
-    const y1 = d.source.y;
-    const y2 = d.target.y;
-    const r = Math.abs(y2 - y1) / 2;
-    return `M${margin.left},${y1}A${r},${r} 0,0,${y1 < y2 ? 1 : 0} ${margin.left},${y2}`;
-  }
-  y = d3.scalePoint(graph.nodes.map(d => d.id).sort(d3.ascending), [margin.top, height - margin.bottom])
-  margin = ({top: 20, right: 20, bottom: 20, left: 100})
-  height = (data.nodes.length - 1) * step + margin.top + margin.bottom
-  step = 14
-  color = d3.scaleOrdinal(graph.nodes.map(d => d.group).sort(d3.ascending), d3.schemeCategory10)
-
-  graph = {
-    const nodes = data.nodes.map(({id, group}) => ({
-      id,
-      sourceLinks: [],
-      targetLinks: [],
-      group
-    }));
-
-    const nodeById = new Map(nodes.map(d => [d.id, d]));
-
-    const links = data.links.map(({source, target, value}) => ({
-      source: nodeById.get(source),
-      target: nodeById.get(target),
-      value
-    }));
-
-    for (const link of links) {
-      const {source, target, value} = link;
-      source.sourceLinks.push(link);
-      target.targetLinks.push(link);
-    }
-
-    return {nodes, links};
-  }
-
-  data = FileAttachment("data/miserables.json").json()
-  d3 = require("d3@5")
-  </script> 
+      
+        // Add the links
+        var links = svg
+          .selectAll('mylinks')
+          .data(data.links)
+          .enter()
+          .append('path')
+          .attr('d', function (d) {
+            start = x(idToNode[d.source].name)    // X position of start node on the X axis
+            end = x(idToNode[d.target].name)      // X position of end node
+            return ['M', start, height-30,    // the arc starts at the coordinate x=start, y=height-30 (where the starting node is)
+              'A',                            // This means we're gonna build an elliptical arc
+              (start - end)/2, ',',    // Next 2 lines are the coordinates of the inflexion point. Height of this point is proportional with start - end distance
+              (start - end)/2, 0, 0, ',',
+              start < end ? 1 : 0, end, ',', height-30] // We always want the arc on top. So if end is before start, putting 0 here turn the arc upside down.
+              .join(' ');
+          })
+          .style("fill", "none")
+          .attr("stroke", "grey")
+          .style("stroke-width", 1)
+      
+        // Add the circle for the nodes
+        var nodes = svg
+          .selectAll("mynodes")
+          .data(data.nodes.sort(function(a,b) { return +b.n - +a.n }))
+          .enter()
+          .append("circle")
+            .attr("cx", function(d){ return(x(d.name))})
+            .attr("cy", height-30)
+            .attr("r", function(d){ return(size(d.n))})
+            .style("fill", function(d){ return color(d.grp)})
+            .attr("stroke", "white")
+      
+        // And give them a label
+        var labels = svg
+          .selectAll("mylabels")
+          .data(data.nodes)
+          .enter()
+          .append("text")
+            .attr("x", 0)
+            .attr("y", 0)
+            .text(function(d){ return(d.name)} )
+            .style("text-anchor", "end")
+            .attr("transform", function(d){ return( "translate(" + (x(d.name)) + "," + (height-15) + ")rotate(-45)")})
+            .style("font-size", 6)
+      
+        // Add the highlighting functionality
+        nodes
+          .on('mouseover', function (d) {
+            // Highlight the nodes: every node is green except of him
+            nodes
+              .style('opacity', .2)
+            d3.select(this)
+              .style('opacity', 1)
+            // Highlight the connections
+            links
+              .style('stroke', function (link_d) { return link_d.source === d.id || link_d.target === d.id ? color(d.grp) : '#b8b8b8';})
+              .style('stroke-opacity', function (link_d) { return link_d.source === d.id || link_d.target === d.id ? 1 : .2;})
+              .style('stroke-width', function (link_d) { return link_d.source === d.id || link_d.target === d.id ? 4 : 1;})
+            labels
+              .style("font-size", function(label_d){ return label_d.name === d.name ? 16 : 2 } )
+              .attr("y", function(label_d){ return label_d.name === d.name ? 10 : 0 } )
+      
+          })
+          .on('mouseout', function (d) {
+            nodes.style('opacity', 1)
+            links
+              .style('stroke', 'grey')
+              .style('stroke-opacity', .8)
+              .style('stroke-width', '1')
+            labels
+              .style("font-size", 6 )
+      
+          })
+      })
+      
+      </script>
+      
 {% endblock %}
