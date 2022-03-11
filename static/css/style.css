@@ -1,0 +1,19 @@
+
+body {
+    background-color: black;
+    background-image: url("https://cutewallpaper.org/21/survivor-wallpaper/Survivor-Wallpaper-46+-Group-Wallpapers.jpg");
+    color: white;
+}
+
+@font-face {
+    font-family: survivorFont;
+    src: url(survivant.ttf);
+  }
+
+  h1 {
+      font-family: survivorFont;
+  }
+
+  .navbar {
+    opacity: 60%;
+  }

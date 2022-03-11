@@ -32,7 +32,8 @@ def season_page(season_num):
 def get_vote_data(season_num, episode_num):
     vote_records = crud.get_votes_by_episode(season_num, episode_num)
     season_castaways = crud.return_season_castaways_in_season(season_num)
-    vote_record_dict = crud.convert_voted_for_data(vote_records, season_castaways)
+    tribe_assignments = crud.get_tribe_status_by_episode(season_num, episode_num)
+    vote_record_dict = crud.convert_voted_for_data(vote_records, season_castaways, tribe_assignments)
 
     return jsonify(vote_record_dict)
 
@@ -45,7 +46,7 @@ def episode_page(season_num, episode_num):
     episode = crud.return_episode(season_num, episode_num)
     season_castaways = crud.return_season_castaways_in_season(season_num)
     vote_records = crud.get_votes_by_episode(season_num, episode_num)
-    
+
     episode_num = episode_num
     season_num = season_num
 

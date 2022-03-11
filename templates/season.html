@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Survivor: Season {{ season_num }}{% endblock %}
+
 {% block body %}
   <h1>Season {{ season_num }} - {{ season.season_name }}</h1>
   <h2>Location: {{ season.location }}</h2>
@@ -20,8 +22,6 @@
     <a href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
     {% endfor %}
   </div>
-
-
 
 
   <script src="/static/js/season.js"></script>

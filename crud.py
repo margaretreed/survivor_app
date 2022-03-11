@@ -101,6 +101,13 @@ def get_votes_by_episode(season_num, episode_num):
 
     return vote_records
 
+def get_tribe_status_by_episode(season_num, episode_num):
+    #query for tribe statuses for all season_castaways per episode -- call this function in get data route on server, then pass variable into convert data function below
+    episode = return_episode(season_num, episode_num)
+    tribe_assignments = Tribe_Map.query.filter(Tribe_Map.episode_id==episode.episode_id).all()
+
+    return tribe_assignments
+
 
 def get_previous_seasons_of_castaways(season_num):
     """Returns dictionary of seasons as keys, and castaways that appear in those seasons as values"""
@@ -129,22 +136,30 @@ def get_previous_seasons_of_castaways(season_num):
 
     return previous_seasons_with_castaways
 
-def convert_voted_for_data(vote_records, season_castaways):
+def convert_voted_for_data(vote_records, season_castaways, tribe_assignments):
     """Returns dictionary with nodes and links as keys.
          
          {
              "nodes": [
-                 {"name": "Tony", "n": 1, "grp": 1, "id": "Tony"},
-                 {"name": "Sarah", "n": 1, "grp": 1, "id": "Sarah"}
-                 {"name": "Jake", "n": 1, "grp": 1, "id": "Jake"}
+                {"name": "Tony", "n": 1, "grp": 1, "id": "Tony"},
+                {"name": "Sarah", "n": 1, "grp": 1, "id": "Sarah"},
+                {"name": "Jake", "n": 1, "grp": 1, "id": "Jake"},
+                {"name": "TonyVT", "n": 1, "grp": 1, "id": "Tony"},
+                {"name": "SarahVT", "n": 1, "grp": 1, "id": "Sarah"},
+                {"name": "JakeVT", "n": 1, "grp": 1, "id": "Jake"}
              ],
              "links": [
-                 {"source": "Tony", "target": "Sarah", "value": 1},
-                 {"source": "Sarah", "target": "Tony", "value": 1},
-                 {"source": "Jake", "target": "Sarah", "value": 1}
+                 {"source": "Tony", "target": "SarahVT", "value": 1},
+                 {"source": "Sarah", "target": "TonyVT", "value": 1},
+                 {"source": "Jake", "target": "SarahVT", "value": 1}
              ]
          }
     """
+    #determining the tribe names in a given episode to be able to use the index as the group value for each node on graph
+    tribes_in_episode = []
+    for tribe_record in tribe_assignments:
+        if tribe_record.tribe_name not in tribes_in_episode:
+            tribes_in_episode.append(tribe_record.tribe_name)
     # using season_castaways to add a node for every castaway in that season,
     # rather than vote_records since some castaways may not have recorded a vote that episode
     castaway_nodes = []
@@ -152,17 +167,29 @@ def convert_voted_for_data(vote_records, season_castaways):
         new_node = {}
         new_node["name"] = season_castaway.castaway.short_name
         new_node["n"] = 1
-        new_node["grp"] = 1
+        for tribe_record in tribe_assignments:
+            if tribe_record.season_castaway == season_castaway:
+                #then new_node["grp"] = the index of that tribe in the tribes_in_episode list plus 1
+                new_node["grp"] = tribes_in_episode.index(tribe_record.tribe_name) + 1
+
         new_node["id"] = season_castaway.castaway.short_name
         castaway_nodes.append(new_node)
-    
+
+    for season_castaway in season_castaways:
+        new_node = {}
+        new_node["name"] = f'{season_castaway.castaway.short_name}VT'
+        new_node["n"] = 1
+        new_node["grp"] = 0
+        new_node["id"] = f'{season_castaway.castaway.short_name}VT'
+        castaway_nodes.append(new_node)
+
     # loop through list of vote records and append each name as a node
     # once (may have <1 vote records for revotes or special votes)
     vote_links = []
     for vote in vote_records:
         new_link = {}
         new_link["source"] = vote.season_castaway.castaway.short_name
-        new_link["target"] = vote.castaway_voted_for.castaway.short_name
+        new_link["target"] = f'{vote.castaway_voted_for.castaway.short_name}VT'
         new_link["value"] = 1
         vote_links.append(new_link)
 
@@ -172,6 +199,7 @@ def convert_voted_for_data(vote_records, season_castaways):
                               }
 
     return vote_records_dictionary
+
 
         
 
