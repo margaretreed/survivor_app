@@ -228,7 +228,7 @@ jury_votes_df = pd.read_csv('data/jury_votes.csv', usecols=["season",
                                                         "finalist",
                                                         "castaway_id",
                                                         "finalist_id",
-                                                        "jury_vote",])
+                                                        "jury_vote"])
 
 for index, row in jury_votes_df.iterrows():
     season_num = row['season']
@@ -244,7 +244,10 @@ for index, row in jury_votes_df.iterrows():
     castaway_voted_for = castaway_voted_for_list[0]
     final_jury_vote = row['jury_vote']
 
-    episode = None
+    # episode_list = model.db.session.query(model.Episode).join(model.Season).filter(model.Season.season_num==season_num, model.Episode.episode_num==episode_num).all()
+    # episode_id = episode_list[0].episode_id
+    episodes_list = model.Episode.query.filter(model.Episode.season_id==season_num).all()
+    episode = episodes_list[-1]
     immunity_status = None
     vote_nullified = False
 

@@ -98,8 +98,16 @@ def return_season_castaways_in_season(season_num):
 def get_votes_by_episode(season_num, episode_num):
     episode = return_episode(season_num, episode_num)
     vote_records = Vote_Record.query.filter(Vote_Record.episode_id==episode.episode_id).all()
-
+    
     return vote_records
+
+def is_last_episode(season_num, episode_num):
+        #check if episode is last is season
+    episodes = return_episodes_in_season(season_num)
+    if episode_num == len(episodes):
+        return True
+    else:
+        return False
 
 def get_tribe_status_by_episode(season_num, episode_num):
     #query for tribe statuses for all season_castaways per episode -- call this function in get data route on server, then pass variable into convert data function below
@@ -144,9 +152,9 @@ def convert_voted_for_data(vote_records, season_castaways, tribe_assignments):
                 {"name": "Tony", "n": 1, "grp": 1, "id": "Tony"},
                 {"name": "Sarah", "n": 1, "grp": 1, "id": "Sarah"},
                 {"name": "Jake", "n": 1, "grp": 1, "id": "Jake"},
-                {"name": "TonyVT", "n": 1, "grp": 1, "id": "Tony"},
-                {"name": "SarahVT", "n": 1, "grp": 1, "id": "Sarah"},
-                {"name": "JakeVT", "n": 1, "grp": 1, "id": "Jake"}
+                {"name": "TonyVT", "n": 1, "grp": 0, "id": "Tony"},
+                {"name": "SarahVT", "n": 1, "grp": 0, "id": "Sarah"},
+                {"name": "JakeVT", "n": 1, "grp": 0, "id": "Jake"}
              ],
              "links": [
                  {"source": "Tony", "target": "SarahVT", "value": 1},
@@ -202,6 +210,14 @@ def convert_voted_for_data(vote_records, season_castaways, tribe_assignments):
 
 
         
+# while episode num is > 1
+    #query vote records for that season and push to list?
+    # episode_num=episode_num-1
+
+#for each vote record
+ #create dictionary of keys and values of people that voted similarly ex:
+ # {"tony":"sarah"}
+#  OR ["tony", "sarah", 1]
 
 
 

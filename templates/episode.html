@@ -6,6 +6,9 @@
 <style>
   body{background-color:#121212;}
   h1{color: white;}
+  .episode_title {
+    font-size: 20px;
+  }
 
 </style>
 {% endblock %}
@@ -17,8 +20,14 @@
       {% endfor %}
     </div>
 
+    <div class="votes">
+      {% for vote in vote_records %}
+      <p>Vote {{ vote.vote_desc }}</p>
+      {% endfor %}
+    </div>
+
     <h1>Season {{ season.season_id }} Episode {{ episode.episode_num }}<h1>
-    <h1>"{{ episode.title }}"</h1>
+    <h1 class="episode_title">{{ episode.title }}</h1>
 
     <div id="my_dataviz"></div>
 
