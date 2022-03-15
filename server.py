@@ -60,6 +60,35 @@ def episode_page(season_num, episode_num):
                                                 vote_records=vote_records
                                                 )
 
+# @app.route('/heat-map-data/<season_num>/<episode_num>')
+@app.route('/episode-heat-map_data/<season_num>/<episode_num>')
+def get_heat_map_data(season_num, episode_num):
+
+    heat_map_data = crud.get_heat_map_data(season_num, episode_num)
+
+    return jsonify(heat_map_data)
+
+@app.route('/episode-heat-map/<season_num>/<episode_num>')
+def episode_heat_map_page(season_num, episode_num):
+    """View Episode Heat Map Page."""
+    all_seasons = crud.return_all_seasons()
+    season = crud.return_season_details(season_num)
+    episodes = crud.return_episodes_in_season(season_num)
+    episode = crud.return_episode(season_num, episode_num)
+    season_castaways = crud.return_season_castaways_in_season(season_num)
+    vote_records = crud.get_votes_by_episode(season_num, episode_num)
+
+    return render_template('episode_heat_map.html', seasons=all_seasons,
+                                                season_num=season_num,
+                                                episode_num=episode_num,
+                                                episodes=episodes,
+                                                season=season,
+                                                episode=episode,
+                                                season_castaways=season_castaways,
+                                                vote_records=vote_records
+                                                )
+
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)

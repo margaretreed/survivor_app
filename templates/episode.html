@@ -28,8 +28,8 @@
 
     <h1>Season {{ season.season_id }} Episode {{ episode.episode_num }}<h1>
     <h1 class="episode_title">{{ episode.title }}</h1>
-
-    <div id="my_dataviz"></div>
+    <a href="/episode-heat-map/{{ season.season_id }}/{{ episode.episode_num }}" class="btn btn-large btn-primary">Heat Map</a>
+    <div id="arc_diagram"></div>
 
     <div class="season_castaways">
         {% for season_castaway in season_castaways %}
@@ -53,7 +53,7 @@
         height = 500 - margin.top - margin.bottom;
       
       // append the svg object to the body of the page
-      var svg = d3.select("#my_dataviz")
+      var svg = d3.select("#arc_diagram")
         .append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
@@ -169,7 +169,6 @@
       
           })
       })
-      
     </script>
       
 {% endblock %}

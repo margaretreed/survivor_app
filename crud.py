@@ -1,6 +1,8 @@
 """CRUD operations."""
 
 from model import db, Castaway, Season, Episode, Season_Castaway, Vote_Record, Tribe_Map, connect_to_db
+from collections import Counter
+
 
 def create_castaway(full_name, short_name, date_of_birth, gender):
     """Create and return a new castaway."""
@@ -101,21 +103,12 @@ def get_votes_by_episode(season_num, episode_num):
     
     return vote_records
 
-def is_last_episode(season_num, episode_num):
-        #check if episode is last is season
-    episodes = return_episodes_in_season(season_num)
-    if episode_num == len(episodes):
-        return True
-    else:
-        return False
-
 def get_tribe_status_by_episode(season_num, episode_num):
     #query for tribe statuses for all season_castaways per episode -- call this function in get data route on server, then pass variable into convert data function below
     episode = return_episode(season_num, episode_num)
     tribe_assignments = Tribe_Map.query.filter(Tribe_Map.episode_id==episode.episode_id).all()
 
     return tribe_assignments
-
 
 def get_previous_seasons_of_castaways(season_num):
     """Returns dictionary of seasons as keys, and castaways that appear in those seasons as values"""
@@ -209,19 +202,67 @@ def convert_voted_for_data(vote_records, season_castaways, tribe_assignments):
     return vote_records_dictionary
 
 
+def get_heat_map_data(season_num, episode_num):
+
+    season_castaways = return_season_castaways_in_season(season_num)
+    season_castaway_dict = {}
+    for season_castaway in season_castaways:
+        short_name = season_castaway.castaway.short_name
+        season_castaway_dict[short_name] = None
+
+
+    episode_counter = int(episode_num)
+    alliances_dict = {}
+    alliance_pair_list = []
+
+    while episode_counter >= 1:
+        vote_records = get_votes_by_episode(season_num, episode_counter)
+
+        for vote in vote_records:
+            if vote.castaway_voted_for:
+                castaway = vote.season_castaway.castaway.short_name
+                castaway_voted_for = vote.castaway_voted_for.castaway.short_name
+            if castaway_voted_for not in alliances_dict:
+                alliances_dict[castaway_voted_for] = [castaway]
+            else:
+                alliances_dict[castaway_voted_for].append(castaway)
+
+        #with the dict of alliances, each key represents the person voted for, and each value
+        # is a list of castaways tha voted similarly that episode. Loop through the values of that list
+        # to create key value pairings of those that voted similarly and append to alliance pair list
+        for castaway_voted_for, castaways in alliances_dict.items():
+            if len(castaways) > 1:
+                for castaway in castaways:
+                    for castaway_pair in castaways:
+                        alliance_pair = [castaway, castaway_pair]
+                        alliance_pair_list.append(tuple(alliance_pair))
         
-# while episode num is > 1
-    #query vote records for that season and push to list?
-    # episode_num=episode_num-1
+        alliances_dict = {}
+        episode_counter = episode_counter - 1
 
-#for each vote record
- #create dictionary of keys and values of people that voted similarly ex:
- # {"tony":"sarah"}
-#  OR ["tony", "sarah", 1]
+    alliance_pair_tallies = Counter(alliance_pair_list)
+    # print(alliance_pair_tallies)
 
 
 
+    heat_map_data_list = []
+    for pair_set, value in alliance_pair_tallies.items():
+        pair_list = list(pair_set)
+        pair_list.append(value)
+        heat_map_data_list.append(pair_list)
 
-
-
+    # heat_map_data = {
+    #             "values": {
+    #                 "data": heat_map_data_list
+    #             }
+    #         }
+    heat_map_data = {
+                "castaways": season_castaway_dict,
+                "data": heat_map_data_list
+                }
     
+    
+    print(heat_map_data)
+
+
+    return heat_map_data
