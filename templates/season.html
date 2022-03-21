@@ -3,20 +3,18 @@
 {% block title %}Survivor: Season {{ season_num }}{% endblock %}
 
 {% block navbar %}
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Episode
-  </a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      {% for episode in episodes %}
-      <a class="dropdown-item" href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
-      {% endfor %}
-  </div>
+<li>
+  <h3 class="episode-menu-toggle">Episodes</h3>
 </li>
+{% for episode in episodes %}
+<li>
+  <a class="episode-menu-item" href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
+</li>
+{% endfor %}
 {% endblock %}
 
 {% block body %}
-<div class="main-body">
+<div class="main-content">
   <div class="season-header">
     <h1>Season {{ season_num }} </h1>
     <h1>{{ season.season_name }}</h1>
@@ -41,5 +39,10 @@
 
 </div>
 
-  <script src="/static/js/season.js"></script>
+{% endblock %}
+
+{% block script %}    
+      seasonMenuItems.forEach(item => {
+              item.classList.add('active');
+            });
 {% endblock %}

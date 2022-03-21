@@ -3,20 +3,19 @@
 {% block title %}Survivor: Season {{ season_num }} Episode {{ episode.episode_num }}{% endblock %}
 
 {% block navbar %}
-<li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Episode
-  </a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-      {% for episode in episodes %}
-      <a class="dropdown-item" href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
-      {% endfor %}
-  </div>
+<li>
+  <h3 class="episode-menu-toggle">Episodes</h3>
 </li>
+{% for episode in episodes %}
+<li>
+  <a class="episode-menu-item" href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
+</li>
+{% endfor %}
 {% endblock %}
 
+
 {% block body %}
-<div class="main-body">
+<div class="main-content">
 
     <div class="season-episode-header">
       <h1>Season {{ season.season_id }} Episode {{ episode.episode_num }}</h1>
@@ -55,7 +54,12 @@
   
   </div>
 
-    <script>
+{% endblock %}
+
+{% block script %}    
+      seasonMenuItems.forEach(item => {
+              item.classList.add('active');
+            });
 
       const season_num = JSON.parse({{ season_num | tojson }})
       const episode_num = JSON.parse({{ episode_num | tojson }})
@@ -197,7 +201,5 @@
       // implement heat map button once able to display multiple d3 graphs on same page
       // heatMapButton.addEventListener('click', () => {
 
-      // });
-</script>
-      
+      // });      
 {% endblock %}

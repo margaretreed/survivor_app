@@ -20,18 +20,56 @@
         {% endblock %}
     </head>
     <body>
+      <section class = "main-body">
+        <video playsinline autoplay muted loop id="bgvid">
+          <source src="/static/torch-video.mp4" type="video/mp4">
+        </video>
 
-      <video playsinline autoplay muted loop id="bgvid">
-        <source src="/static/torch-video.mp4" type="video/mp4">
-      </video>
-
-    <!-- Include the page's content with this block. -->
+          <!-- Include the page's content with this block. -->
     {% block body %}
     {% endblock %}
 
-        <nav class="navbar navbar-expand-lg">
-          <img src="/static/torch-illustrated.jpg" width="60px">
-            <a class="navbar-brand app-title" href="/">Survivor Stats</a>
+          <header>
+            <div class="logo">
+              <img src="/static/torch-illustrated.jpg" width="60px">
+              <a class="app-title" href="/">Survivor Stats</a>
+            </div>
+            <div class="menu-toggle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+            </div>
+          </header>
+
+        </section>
+
+        <div class="menu">
+          <ul>
+            <li>
+              <a href="/"><h3>Home</h3></a>
+            </li>
+            <li>
+              <h3 class="season-menu-toggle">Seasons  <i class="bi bi-arrow-down-up"></i></h3>
+              <!-- <h3 class="seasons-toggle">Seasons</h3> -->
+            </li>
+            {% for season in seasons %}
+            <li>
+              <a class="season-menu-item" href="/season/{{ season.season_id }}">Season {{ season.season_id }}</a>
+            </li>
+            {% endfor %}
+            {% block navbar %}
+            {% endblock %}
+          </ul>
+        </div>
+
+
+
+
+
+      <!-- original navbar -->
+<!-- 
+      <nav class="navbar navbar-expand-lg">
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -47,19 +85,39 @@
                     {% endfor %}
                   </div>
                 </li>
-                {% block navbar %}
-                {% endblock %}
               </ul>
             </div>
-          </nav>
+          </nav> -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS, then d3.js -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v4.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+        <script>
+
+          const menuToggle = document.querySelector('.menu-toggle');
+          const showcase = document.querySelector('.main-body');
+          const menu = document.querySelector('.menu');
+          const seasonMenuItems = document.querySelectorAll('.season-menu-item');
+          const seasonMenuToggle = document.querySelector('.season-menu-toggle');
+
+          menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            showcase.classList.toggle('active');
+            menu.classList.toggle('active');
+          })
+
+          seasonMenuToggle.addEventListener('click', () => {
+            seasonMenuItems.forEach(item => {
+              item.classList.toggle('active');
+            });
+          })
+
     {% block script %}
-    {% endblock %}      
+    {% endblock %}    
+  </script>  
     </body>
 </html>
 
