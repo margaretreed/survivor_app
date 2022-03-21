@@ -1,8 +1,28 @@
 
 body {
     background-color: black;
-    background-image: url("https://cutewallpaper.org/21/survivor-wallpaper/Survivor-Wallpaper-46+-Group-Wallpapers.jpg");
-    color: white;
+    scroll-behavior: smooth;
+
+}
+
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 120px;
+  left: 0;
+}
+
+.main-body {
+  margin-top: 140px;
 }
 
 @font-face {
@@ -15,5 +35,189 @@ body {
   }
 
   .navbar {
-    opacity: 60%;
+    background-color: black;
+    position: relative;
+    top: 0;
+    width: 100%;
   }
+
+  .app-title {
+    font-family: survivorFont;
+    font-size: 60px;
+  }
+
+  .app-title {
+    text-transform: uppercase;
+    background-image: linear-gradient(
+      -225deg,
+      #7570b3 0%,
+      #1b9e77 29%,
+      #d95f02 67%,
+      #e7298a 100%
+    );
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 3s linear infinite;
+    display: inline-block;
+    font-size: 70px;
+  }
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.headline {
+  position: relative;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+  .season-header {
+    text-align: center;
+    color: white;
+    margin: 20px;
+  }
+
+  .season-info-section {
+    display: flex;
+    color: white;
+  }
+
+  .season-info {
+    border: solid white 4px;
+    border-radius: 2%;
+    margin: 5px;
+  }
+
+  .season_watch_recs {
+    border: solid white 4px;
+    border-radius: 2%;
+    margin: 5px;
+  }
+
+  .season-episode-header {
+    display: flex;
+    justify-content: center;
+    color: white;
+  }
+
+  .episode-header {
+    display: flex;
+    justify-content: center;
+    color: white;
+  }
+
+
+  .btn {
+    background-color: orange;   
+  }
+
+  .season_castaways {
+    display: flex;
+    flex-wrap: wrap;
+    justify-items: center;
+  }
+
+  .graph-gallery {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .graph-container {
+    display: flex;
+    width: 75%;
+    flex-shrink: 3;
+
+  }
+
+  .cast-image {
+    border-radius: 5%;
+  }
+
+  .castaway-short-name {
+    font-size: 20px;
+    color: white;
+  }
+
+  .castaway-voted-for-name {
+    font-size: 10px;
+    color: white;
+  }
+
+  .image-name {
+    margin: 10px;
+  }
+
+.torch {
+  display: flex;
+}
+
+.arc-desc {
+  display: flex;
+}
+
+.heat-map-desc {
+  display: flex;
+}
+
+.watch-rec-desc {
+  display: flex;
+}
+
+.icon {
+  padding: 15px;
+  border-radius: 15px;
+  opacity: 75%;
+  background-color: black;
+}
+
+.tv-icon {
+  border: 6px solid #1b9e77;
+  background-color: #1b9e77;
+}
+
+.rainbow-icon {
+  border: 6px solid #d95f02;
+  background-color: #d95f02;
+}
+
+.grid-icon {
+  border: 6px solid #7570b3;
+  background-color: #7570b3;
+}
+
+/* .features {
+  display: flex;
+  background-color: white;
+  border-radius: 1%;
+  margin: 30px;
+}
+
+.feature-column {
+  display: flex;
+  flex-direction: column;
+  width: 30%
+  
+} */
+
+.nav-link {
+  font-size: 20px;
+  color: white;
+  margin: 10px;
+}
+
+.dropdown-menu {
+  overflow-y:auto; 
+  max-height:80vh
+ }

@@ -116,6 +116,9 @@ for index, row in castaways_df.iterrows():
     finalist_status = row['finalist']
     img_url = row['img_url']
 
+    if not img_url:
+        img_url = "/static/torch-illustrated.jpg"
+
     created_season_castaway = crud.create_season_castaway(season_id,
                                                             castaway_id,
                                                             city, state,

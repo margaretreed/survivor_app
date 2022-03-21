@@ -2,52 +2,64 @@
 
 {% block title %}Survivor: Season {{ season_num }} Episode {{ episode.episode_num }}{% endblock %}
 
-{% block more_style %}
-<style>
-  body{background-color:#121212;}
-  h1{color: white;}
-  .episode_title {
-    font-size: 20px;
-  }
-
-</style>
+{% block navbar %}
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Episode
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      {% for episode in episodes %}
+      <a class="dropdown-item" href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
+      {% endfor %}
+  </div>
+</li>
 {% endblock %}
 
 {% block body %}
-    <div class="episode_links">
-      {% for episode in episodes %}
-      <a href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
-      {% endfor %}
+<div class="main-body">
+
+    <div class="season-episode-header">
+      <h1>Season {{ season.season_id }} Episode {{ episode.episode_num }}</h1>
     </div>
 
-    <div class="votes">
-      {% for vote in vote_records %}
-      <p>Vote {{ vote.vote_desc }}</p>
-      {% endfor %}
+    <div class="episode-header">
+      <h1 class="episode_title">{{ episode.title }}</h1>
+    </div>
+    
+    <div class="buttons">
+      <button type="button" class="btn btn-secondary" id="castawayButton">Castaways</button>
+      <button type="button" class="btn btn-secondary" id="arcButton">Arc Diagram</button>
+      <a href="/episode-heat-map/{{ season.season_id }}/{{ episode.episode_num }}" class="btn btn-large btn-primary" id="heatMapButton">Heat Map</a>
+      <a href="/episode/{{ season.season_id }}/{{ episode.episode_num + 1 }}" class="btn btn-large btn-primary">Next Episode</a>
     </div>
 
-    <h1>Season {{ season.season_id }} Episode {{ episode.episode_num }}<h1>
-    <h1 class="episode_title">{{ episode.title }}</h1>
-    <a href="/episode-heat-map/{{ season.season_id }}/{{ episode.episode_num }}" class="btn btn-large btn-primary">Heat Map</a>
-    <div id="arc_diagram"></div>
+    <div class="graph-gallery">
+      <div class="graph-container">
+          <div id="arc_diagram"></div>
+      </div>
+    </div>
 
     <div class="season_castaways">
         {% for season_castaway in season_castaways %}
-        <img src="{{ season_castaway.img_url }}" width="250px">
-        <h4>{{ season_castaway.castaway.short_name }}</h4>
-        <h5>Full Name: {{ season_castaway.castaway.full_name }}</h5>
-            {% for vote in vote_records %}
-                {% if vote.castaway_voted_for and vote.season_castaway_id == season_castaway.season_castaway_id %}
-                    <h5>Voted For: {{ vote.castaway_voted_for.castaway.short_name }}</h5>
-                {% endif %}
-            {% endfor %}
+        <div class="image-name">
+          <img src="{{ season_castaway.img_url }}" width="80px" class="cast-image">
+          <h4 class="castaway-short-name">{{ season_castaway.castaway.short_name }}</h4>
+              {% for vote in vote_records %}
+                  {% if vote.castaway_voted_for and vote.season_castaway_id == season_castaway.season_castaway_id %}
+                      <h5 class="castaway-voted-for-name">Voted For: {{ vote.castaway_voted_for.castaway.short_name }}</h5>
+                  {% endif %}
+              {% endfor %}
+        </div>
         {% endfor %}
     </div>
+  
+  </div>
 
     <script>
+
       const season_num = JSON.parse({{ season_num | tojson }})
       const episode_num = JSON.parse({{ episode_num | tojson }})
-
+      
       var margin = {top: 0, right: 30, bottom: 50, left: 60},
         width = 950 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -169,6 +181,23 @@
       
           })
       })
-    </script>
+
+      const arcButton = document.querySelector('#arcButton');
+      const castawayButton = document.querySelector('#castawayButton');
+      // const heatMapButton = document.querySelector('#heatMapButton');
+
+      arcButton.addEventListener('click', () => {
+        $("#arc_diagram").toggle();
+      });
+
+      castawayButton.addEventListener('click', () => {
+        $(".season_castaways").toggle();
+      });
+      
+      // implement heat map button once able to display multiple d3 graphs on same page
+      // heatMapButton.addEventListener('click', () => {
+
+      // });
+</script>
       
 {% endblock %}

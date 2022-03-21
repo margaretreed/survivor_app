@@ -2,10 +2,62 @@
 
 {% block title %}Survivor: Season {{ season_num }} Episode {{ episode.episode_num }}{% endblock %}
 
+{% block navbar %}
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Episode
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      {% for episode in episodes %}
+      <a class="dropdown-item" href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
+      {% endfor %}
+  </div>
+</li>
+{% endblock %}
+
 {% block body %}
+<div class="main-body">
 
-<div id="my_dataviz"></div>
+    <div class="season-header">
+      <h1>Season {{ season.season_id }} Episode {{ episode.episode_num }}</h1>
+    </div>
+    <div class="episode-header">
+      <h1 class="episode_title">{{ episode.title }}</h1>
+    </div>
 
+
+<div class="graph-gallery">
+  <div class="graph-container">
+    <div class="arc-button">
+      <a href="/episode/{{ season.season_id }}/{{ episode.episode_num }}" class="btn btn-large btn-primary"></a>
+      <button type="button" class="btn btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-rainbow" viewBox="0 0 16 16">
+        <path d="M8 4.5a7 7 0 0 0-7 7 .5.5 0 0 1-1 0 8 8 0 1 1 16 0 .5.5 0 0 1-1 0 7 7 0 0 0-7-7zm0 2a5 5 0 0 0-5 5 .5.5 0 0 1-1 0 6 6 0 1 1 12 0 .5.5 0 0 1-1 0 5 5 0 0 0-5-5zm0 2a3 3 0 0 0-3 3 .5.5 0 0 1-1 0 4 4 0 1 1 8 0 .5.5 0 0 1-1 0 3 3 0 0 0-3-3zm0 2a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 4 0 .5.5 0 0 1-1 0 1 1 0 0 0-1-1z"></path>
+      </svg>
+      </button>
+
+      <a href="/episode-heat-map/{{ season.season_id }}/{{ episode.episode_num + 1 }}" class="btn btn-large btn-primary">Next Episode</a>
+
+      <div id="my_dataviz"></div>
+    </div>
+  </div>
+
+  <div class="season_castaways">
+      {% for season_castaway in season_castaways %}
+      <div class="image-name">
+        <img src="{{ season_castaway.img_url }}" width="80px" class="cast-image">
+        <h4 class="castaway-short-name">{{ season_castaway.castaway.short_name }}</h4>
+        <!-- <h5>Full Name: {{ season_castaway.castaway.full_name }}</h5> -->
+            {% for vote in vote_records %}
+                {% if vote.castaway_voted_for and vote.season_castaway_id == season_castaway.season_castaway_id %}
+                    <h5 class="castaway-voted-for-name">Voted For: {{ vote.castaway_voted_for.castaway.short_name }}</h5>
+                {% endif %}
+            {% endfor %}
+      </div>
+      {% endfor %}
+  </div>
+  </div>
+</div>
 <!-- <script>
   const season_num = JSON.parse({{ season_num | tojson }})
   const episode_num = JSON.parse({{ episode_num | tojson }})
@@ -22,9 +74,9 @@
   const episode_num = JSON.parse({{ episode_num | tojson }})
 
 // set the dimensions and margins of the graph
-var margin = {top: 80, right: 25, bottom: 30, left: 100},
-  width = 1000 - margin.left - margin.right,
-  height = 450 - margin.top - margin.bottom;
+var margin = {top: 80, right: 25, bottom: 100, left: 100},
+  width = 950 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")
@@ -50,10 +102,11 @@ d3.json(`/episode-heat-map_data/${season_num}/${episode_num}`, function( data) {
     .padding(0.05);
   svg.append("g")
     .style("font-size", 15)
+    .attr("class", "xlabel")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickSize(0))
     .select(".domain").remove()
-
+  
   // Build Y scales and axis:
   var y = d3.scaleBand()
     .range([ height, 0 ])
@@ -64,10 +117,19 @@ d3.json(`/episode-heat-map_data/${season_num}/${episode_num}`, function( data) {
     .call(d3.axisLeft(y).tickSize(0))
     .select(".domain").remove()
 
+  svg.selectAll(".tick text")
+    .attr("fill","white")
+
+  svg.selectAll(".xlabel text")
+    .attr("fill","white")
+    .attr("transform", "translate(-10,10)rotate(-60)")
+    .style("text-anchor", "end")  
+
+
   // Build color scale
   var myColor = d3.scaleSequential()
-    .interpolator(d3.interpolateInferno)
-    .domain([1,100])
+    .interpolator( d3.interpolateCool)
+    .domain([1, 10])
 
   // create a tooltip
   var tooltip = d3.select("#my_dataviz")
@@ -90,9 +152,11 @@ d3.json(`/episode-heat-map_data/${season_num}/${episode_num}`, function( data) {
   }
   var mousemove = function(d) {
     tooltip
-      .html("The exact value of<br>this cell is: " + d[2])
-      .style("left", (d3.mouse(this)[0]+70) + "px")
-      .style("top", (d3.mouse(this)[1]) + "px")
+      .html("Total value: " + d[2])
+      .style("left", (d3.mouse(this)[0]+80) + "px")
+      .style("top",d3.event.pageY-70+"px")
+
+      // .style("top", (d3.mouse(this)[1]) + "px")
   }
   var mouseleave = function(d) {
     tooltip
@@ -114,7 +178,7 @@ d3.json(`/episode-heat-map_data/${season_num}/${episode_num}`, function( data) {
       .attr("width", x.bandwidth() )
       .attr("height", y.bandwidth() )
       .style("fill", function(d) { return myColor(d[2])} )
-      .style("stroke-width", 4)
+      .style("stroke-width", 3)
       .style("stroke", "none")
       .style("opacity", 0.8)
     .on("mouseover", mouseover)
@@ -128,7 +192,8 @@ svg.append("text")
         .attr("y", -50)
         .attr("text-anchor", "left")
         .style("font-size", "22px")
-        .text("A d3.js heatmap");
+        .style("fill", "white")
+        .text("Alliances");
 
 // Add subtitle to graph
 svg.append("text")
@@ -136,9 +201,9 @@ svg.append("text")
         .attr("y", -20)
         .attr("text-anchor", "left")
         .style("font-size", "14px")
-        .style("fill", "grey")
+        .style("fill", "white")
         .style("max-width", 400)
-        .text("A short description of the take-away message of this chart.");
+        .text("A heat map displaying the frequency with which a castaway votes with another castaway revealing strongest alliances.");
 </script>
       
 {% endblock %}

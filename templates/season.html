@@ -2,27 +2,44 @@
 
 {% block title %}Survivor: Season {{ season_num }}{% endblock %}
 
+{% block navbar %}
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Episode
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      {% for episode in episodes %}
+      <a class="dropdown-item" href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
+      {% endfor %}
+  </div>
+</li>
+{% endblock %}
+
 {% block body %}
-  <h1>Season {{ season_num }} - {{ season.season_name }}</h1>
-  <h2>Location: {{ season.location }}</h2>
-  <h2>Tribe Setup: {{ season.tribe_setup }}</h2>
+<div class="main-body">
+  <div class="season-header">
+    <h1>Season {{ season_num }} </h1>
+    <h1>{{ season.season_name }}</h1>
+  </div>
+  
+  <div class="season-info-section">
+    <div class="season-info">
+      <h2>Location: {{ season.location }}</h2>
+      <h2>Tribe Setup: {{ season.tribe_setup }}</h2>
+    </div>  
 
-  <div class="season_watch_recs">
-    <h2>Watch Recommendations:</h2>
-    {% for season, castaways in previous_seasons_of_castaways.items() %}
-        <h3>Season {{ season }}</h3>
-        {% for castaway in castaways %}
-        <p>-{{ castaway.short_name }}</p>
-        {% endfor %}
-    {% endfor %}
+    <div class="season_watch_recs">
+      <h2>Watch Recommendations:</h2>
+      {% for season, castaways in previous_seasons_of_castaways.items() %}
+          <h3>Season {{ season }}</h3>
+          {% for castaway in castaways %}
+          <p>-{{ castaway.short_name }}</p>
+          {% endfor %}
+      {% endfor %}
+    </div>
   </div>
 
-  <div class="episode_links">
-    {% for episode in episodes %}
-    <a href="/episode/{{ season.season_id }}/{{ episode.episode_num }}">Episode {{ episode.episode_num }}</a>
-    {% endfor %}
-  </div>
-
+</div>
 
   <script src="/static/js/season.js"></script>
 {% endblock %}
