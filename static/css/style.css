@@ -14,7 +14,7 @@ body {
 
 header {
     background-color: black;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -38,10 +38,13 @@ header {
   width: 60px;
   height: 60px;
   border-radius: 5%;
+  right: 0px;
 }
 
 .menu-toggle.active {
   background-color: #e7298a;
+  right: 165px;
+  transition: 0.5s;
 }
 
 .menu.active {
@@ -113,7 +116,7 @@ header {
 }
 .menu ul li a:hover
 {
-  color: #03a9f4; 
+  color: #7570b3;
 }
 
 
@@ -185,11 +188,26 @@ video {
 
 .headline {
   position: relative;
-  height: 100vh;
-  text-align: center;
+  height: 90vh;
+  width: 70vh;
+  margin-top: 150px;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
+}
+
+#fire-quote {
+  font-size: 50px;
+  color: white;
+}
+
+#app-desc{
+  font-size: 22px;
+  color: white;
+  margin: 15px;
+  font-weight: normal;
 }
 
 .main-content {
@@ -205,6 +223,7 @@ video {
 
   .season-info-section {
     display: flex;
+    width: 100%;
     color: white;
   }
 
@@ -212,35 +231,63 @@ video {
     border: solid white 4px;
     border-radius: 2%;
     margin: 5px;
+    width: 40%;
+    padding: 15px;
+  }
+
+  .season-castaways-graph {
+    display: flex;
+    flex-wrap: wrap;
+    border: solid white 4px;
+    border-radius: 2%;
+    margin: 5px;
+    width: 100%;
+    padding: 15px;
+  }
+
+  .season_castaways_episode {
+    border: solid white 4px;
+    border-radius: 2%;
+    margin: 5px;
+    width: 65%;
+    padding: 15px;
   }
 
   .season_watch_recs {
     border: solid white 4px;
+    color: white;
     border-radius: 2%;
     margin: 5px;
+    width: 100%;
+    padding: 15px;
   }
 
   .season-episode-header {
+    width: 100%;
     display: flex;
     justify-content: center;
     color: white;
   }
 
   .episode-header {
+    width: 100%;
     display: flex;
     justify-content: center;
     color: white;
   }
-
-
-  .btn {
-    background-color: orange;   
+  .buttons {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 
-  .season_castaways {
-    display: flex;
-    flex-wrap: wrap;
-    justify-items: center;
+  .btn {
+    background-color: #e7298a;
+    border: solid #e7298a 3px;
+  }
+
+  .btn:hover {
+    background-color: #1b9e77;
+    border: solid #1b9e77 3px;
   }
 
   .graph-gallery {
@@ -250,13 +297,16 @@ video {
 
   .graph-container {
     display: flex;
-    width: 75%;
+    width: 70%;
     flex-shrink: 3;
-
+    background-color: black;
+    margin: 15px;
+    padding: 15px;
   }
 
   .cast-image {
     border-radius: 5%;
+    border: solid white 2px;
   }
 
   .castaway-short-name {
@@ -271,6 +321,7 @@ video {
 
   .image-name {
     margin: 10px;
+    width: 100px;
   }
 
 .torch {
@@ -311,29 +362,99 @@ video {
   background-color: #7570b3;
 }
 
-/* .features {
+.features {
   display: flex;
-  background-color: white;
   border-radius: 1%;
   margin: 30px;
 }
 
 .feature-column {
+  background-color: white;
+  margin: 15px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  width: 30%
-  
-} */
+  align-items: center;
+  width: 30%;
+  border: solid white 15px;
+  border-radius: 5%;
+}
 
-.nav-link {
-  font-size: 20px;
-  color: white;
+.feature-desc {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 300;
   margin: 10px;
 }
 
-.dropdown-menu {
-  overflow-y:auto; 
-  max-height:80vh
- }
 
+.season_cast_list {
+  display:flex;
+  justify-content: flex-start;
+}
+
+.castaway_img {
+  margin: 8px;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.cast-images {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.cast-image {
+  max-width: 100%;
+  height: auto;
+}
  
+.torch-img {
+  display: inline;
+  margin-top: 0px;
+}
+
+.survivor-font {
+  font-family: survivorFont;
+}
+
+.key {
+  display: flex;
+  align-items: center;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.season_castaways_list {
+  display: flex;
+  flex-wrap: wrap;
+  border: solid white 4px;
+  border-radius: 2%;
+  margin: 5px;
+  width: 60%;
+  padding: 15px;
+}
+
+.season_watch_rec_list {
+  margin: 10px;
+}
+
+.season-info-item {
+  margin: 30px 10px 30px 10px;
+}
+
+.season-winner {
+  display: flex;
+}
+
+#winner-name {
+  margin-left: 10px;
+}
+
+.eliminated {
+  -webkit-filter: grayscale(100%);
+}

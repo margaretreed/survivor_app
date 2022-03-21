@@ -135,7 +135,10 @@ def get_previous_seasons_of_castaways(season_num):
                 else:
                     previous_seasons_with_castaways[season_castaway_by_castaway_id.season_id].append(season_castaway_by_castaway_id.castaway)
 
-    return previous_seasons_with_castaways
+    season_items = previous_seasons_with_castaways.items()
+    sorted_seasons_with_prev_castaways = sorted(season_items)
+
+    return sorted_seasons_with_prev_castaways
 
 def convert_voted_for_data(vote_records, season_castaways, tribe_assignments):
     """Returns dictionary with nodes and links as keys.
