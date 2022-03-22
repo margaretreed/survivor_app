@@ -25,9 +25,7 @@
 
 
     <div class="buttons">
-      <button type="button" class="btn btn-secondary" id="castawayButton">Castaways</button>
       <a href="/episode/{{ season.season_id }}/{{ episode.episode_num }}" class="btn btn-large btn-primary">Arc Diagram</a>
-      <button type="button" class="btn btn-secondary" id="heatMapButton">Heat Map</button>
       <a href="/episode-heat-map/{{ season.season_id }}/{{ episode.episode_num + 1 }}" class="btn btn-large btn-primary">Next Episode</a>
     </div>
 
@@ -37,12 +35,15 @@
     </div>
   </div>
 
-  <div class="season-castaways-graph">
+    <div class="season-castaways-graph">
       {% for season_castaway in season_castaways %}
       <div class="image-name">
+        {% if season_castaway.episode_voted_out <= episode.episode_num %}
+        <img src="{{ season_castaway.img_url }}" width="100px" class="cast-image eliminated">
+        {% else %}
         <img src="{{ season_castaway.img_url }}" width="100px" class="cast-image">
+        {% endif %}
         <h4 class="castaway-short-name">{{ season_castaway.castaway.short_name }}</h4>
-        <!-- <h5>Full Name: {{ season_castaway.castaway.full_name }}</h5> -->
             {% for vote in vote_records %}
                 {% if vote.castaway_voted_for and vote.season_castaway_id == season_castaway.season_castaway_id %}
                     <h5 class="castaway-voted-for-name">Voted For: {{ vote.castaway_voted_for.castaway.short_name }}</h5>
@@ -50,7 +51,7 @@
             {% endfor %}
       </div>
       {% endfor %}
-  </div>
+    </div>
   </div>
 </div>
 
@@ -155,8 +156,8 @@ d3.json(`/episode-heat-map_data/${season_num}/${episode_num}`, function( data) {
   var mousemove = function(d) {
     tooltip
       .html("Total value: " + d[2])
-      .style("left", (d3.mouse(this)[0]+80) + "px")
-      .style("top",d3.event.pageY-70+"px")
+      .style("left", (d3.mouse(this)[0]+130) + "px")
+      .style("top",d3.event.pageY-220+"px")
 
       // .style("top", (d3.mouse(this)[1]) + "px")
   }
@@ -195,7 +196,7 @@ svg.append("text")
         .attr("text-anchor", "left")
         .style("font-size", "22px")
         .style("fill", "white")
-        .text("Alliances");
+        .text("Alliances Heat Map");
 
 // Add subtitle to graph
 svg.append("text")
@@ -206,21 +207,7 @@ svg.append("text")
         .style("fill", "white")
         .style("max-width", 400)
         .text("A heat map displaying the frequency with which a castaway votes with another castaway revealing strongest alliances.");
-    
-        const castawayButton = document.querySelector('#castawayButton');
-        const heatMapButton = document.querySelector('#heatMapButton');
-  
-        heatMapButton.addEventListener('click', () => {
-          $(".graph-gallery").toggle();
-        });
-  
-        castawayButton.addEventListener('click', () => {
-          $(".season_castaways").toggle();
-        });
-        
-        // implement heat map button once able to display multiple d3 graphs on same page
-        // heatMapButton.addEventListener('click', () => {
-  
-        // });              
+      
+             
 {% endblock %}
 

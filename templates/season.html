@@ -26,27 +26,27 @@
       <h1 class="survivor-font">Season Info</h1>
 
       <div class="season-info-item">
-        <h2>Location:</h2>
-        <h2>{{ season.location }}</h2>
+        <h2><strong>Location:</strong></h2>
+        <h3>{{ season.location }}</h3>
       </div>  
 
       <div class="season-info-item">
-        <h2>Tribe Setup:</h2>
-        <h2>{{ season.tribe_setup }}</h2>
+        <h2><strong>Tribe Setup:</strong></h2>
+        <h3>{{ season.tribe_setup }}</h3>
       </div>
 
       <div class="season-info-item">
-        <h2>Number of Episodes:</h2>
-        <h2>{{ season.episodes|length }}</h2>
+        <h2><strong>Number of Episodes:</strong></h2>
+        <h3>{{ season.episodes|length }}</h3>
       </div>
 
       <div class="season-info-item">
-        <h2>Number of Castaways:</h2>
-        <h2>{{ season.season_castaways|length }}</h2>
+        <h2><strong>Number of Castaways:</strong></h2>
+        <h3>{{ season.season_castaways|length }}</h3>
       </div>
 
       <div class="season-info-item">
-        <h2>Winner:</h2>
+        <h2><strong>Winner:</strong></h2>
         <p id="winner-reveal-instr">Click the trophy to reveal the winner!</p>
 
         <div class="season-winner">
@@ -75,6 +75,7 @@
 
     <div class="season_watch_recs">
       <h1 class="survivor-font">Watch Recommendations:</h1>
+      <h5>Of the castaways in season {{ season_num }}, below is a visual on any previous seasons these castaways appear.</h5>
       <div class="key">
         <img src="/static/torch-illustrated.jpg" width="25px" class="torch_img">
         <p> = total number of seasons castaway has appeared</p>

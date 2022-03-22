@@ -26,8 +26,6 @@
     </div>
     
     <div class="buttons">
-      <button type="button" class="btn btn-secondary" id="castawayButton">Castaways</button>
-      <button type="button" class="btn btn-secondary" id="arcButton">Arc Diagram</button>
       <a href="/episode-heat-map/{{ season.season_id }}/{{ episode.episode_num }}" class="btn btn-large btn-primary" id="heatMapButton">Heat Map</a>
       <a href="/episode/{{ season.season_id }}/{{ episode.episode_num + 1 }}" class="btn btn-large btn-primary">Next Episode</a>
     </div>
@@ -189,21 +187,5 @@
       
           })
       })
-
-      const arcButton = document.querySelector('#arcButton');
-      const castawayButton = document.querySelector('#castawayButton');
-      // const heatMapButton = document.querySelector('#heatMapButton');
-
-      arcButton.addEventListener('click', () => {
-        $("#arc_diagram").toggle();
-      });
-
-      castawayButton.addEventListener('click', () => {
-        $(".season_castaways").toggle();
-      });
-      
-      // implement heat map button once able to display multiple d3 graphs on same page
-      // heatMapButton.addEventListener('click', () => {
-
-      // });      
+     
 {% endblock %}

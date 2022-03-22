@@ -2,8 +2,8 @@
 body {
     background-color: black;
     scroll-behavior: smooth;
-
-}
+    font-family:Arial, Helvetica, sans-serif;
+   }
 
 *
 {
@@ -50,6 +50,7 @@ header {
 .menu.active {
   z-index: 100;
   display: flex;
+  
 }
 
 .main-body {
@@ -58,17 +59,19 @@ header {
   width: 100%;
   min-height: 100vh;
   padding: 10px;
-  transition: 0.5s;
   z-index: 2;
 }
 
 .main-body.active
 {
   right: 200px;
+  transition: 0.5s;
 }
 
 .season-menu-item.active {
   display: none;
+  transition: 0.5s;
+
 }
 
 .menu
@@ -81,6 +84,7 @@ header {
   justify-content: center;
   align-items: flex-start;
   background-color: white;
+  opacity: 0.95;
   overflow-y: scroll;
   display:none;
 }
@@ -91,8 +95,12 @@ header {
 
 .bi-arrow-down-up {
   color: #1b9e77;
-  font-weight: bold;
-  width: 10px;
+  width: 8px;
+}
+
+.bi-arrow-down-up:hover {
+  color: #7570b3;
+  width: 8px;
 }
 
 .menu ul li h3
@@ -111,7 +119,7 @@ header {
 .menu ul li a
 {
   text-decoration: none;
-  font-size: 24px;
+  font-size: 20px;
   color: #111;
 }
 .menu ul li a:hover
@@ -188,25 +196,24 @@ video {
 
 .headline {
   position: relative;
-  height: 90vh;
-  width: 70vh;
-  margin-top: 150px;
+  height: 70vh;
+  width: 45%;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  align-items: center;
 }
 
 #fire-quote {
-  font-size: 50px;
+  font-size: 45px;
   color: white;
 }
 
 #app-desc{
   font-size: 22px;
   color: white;
-  margin: 15px;
+  margin-top: 25px;
   font-weight: normal;
 }
 
@@ -223,14 +230,14 @@ video {
 
   .season-info-section {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     color: white;
+    background-color: black;
   }
 
   .season-info {
     border: solid white 4px;
-    border-radius: 2%;
-    margin: 5px;
     width: 40%;
     padding: 15px;
   }
@@ -239,15 +246,13 @@ video {
     display: flex;
     flex-wrap: wrap;
     border: solid white 4px;
-    border-radius: 2%;
-    margin: 5px;
+    background-color: black;
     width: 100%;
-    padding: 15px;
+    margin-top: 10px;
   }
 
   .season_castaways_episode {
     border: solid white 4px;
-    border-radius: 2%;
     margin: 5px;
     width: 65%;
     padding: 15px;
@@ -255,9 +260,9 @@ video {
 
   .season_watch_recs {
     border: solid white 4px;
+    background-color: black;
     color: white;
-    border-radius: 2%;
-    margin: 5px;
+    margin-top: 10px;
     width: 100%;
     padding: 15px;
   }
@@ -293,15 +298,14 @@ video {
   .graph-gallery {
     display: flex;
     justify-content: space-between;
+    border: solid white 4px;
+    background-color: black;
   }
 
   .graph-container {
     display: flex;
     width: 70%;
     flex-shrink: 3;
-    background-color: black;
-    margin: 15px;
-    padding: 15px;
   }
 
   .cast-image {
@@ -311,6 +315,7 @@ video {
 
   .castaway-short-name {
     font-size: 20px;
+    margin-top: 5px;
     color: white;
   }
 
@@ -343,13 +348,11 @@ video {
 .icon {
   padding: 15px;
   border-radius: 15px;
-  opacity: 75%;
-  background-color: black;
 }
 
 .tv-icon {
-  border: 6px solid #1b9e77;
-  background-color: #1b9e77;
+  border: 6px solid #e7298a;
+  background-color: #e7298a;
 }
 
 .rainbow-icon {
@@ -364,25 +367,38 @@ video {
 
 .features {
   display: flex;
-  border-radius: 1%;
-  margin: 30px;
+  justify-content: space-around;
+  width: 100%;
+  /* margin: 30px; */
 }
 
 .feature-column {
-  background-color: white;
-  margin: 15px;
-  padding: 20px;
+  margin-top: 35px;
+  margin-left: 15px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
-  border: solid white 15px;
-  border-radius: 5%;
+  width: 90%;
+  color: white;
+  z-index: 50;
+}
+
+.feature-column:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.9;
+}
+
+.feature-desc-short {
+  margin: 25px;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .feature-desc {
   text-align: center;
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 300;
   margin: 10px;
 }
@@ -391,6 +407,7 @@ video {
 .season_cast_list {
   display:flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .castaway_img {
@@ -433,14 +450,13 @@ video {
   display: flex;
   flex-wrap: wrap;
   border: solid white 4px;
-  border-radius: 2%;
-  margin: 5px;
-  width: 60%;
+  background-color: black;
+  width: 59%;
   padding: 15px;
 }
 
 .season_watch_rec_list {
-  margin: 10px;
+  margin: 15px;
 }
 
 .season-info-item {
@@ -449,6 +465,10 @@ video {
 
 .season-winner {
   display: flex;
+}
+
+.bi-trophy-fill {
+  margin-bottom: 15px;
 }
 
 #winner-name {
