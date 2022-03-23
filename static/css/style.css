@@ -306,6 +306,9 @@ video {
     display: flex;
     width: 70%;
     flex-shrink: 3;
+    padding-right: 70px;
+    padding-left: 70px;
+    padding-top: 10px;
   }
 
   .cast-image {
