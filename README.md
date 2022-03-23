@@ -42,4 +42,4 @@ In addition, greyed out cast images reveal the eliminated castaways for the sele
 ## Version 2.0 <a name="version2"></a>
 
 ## About the Developer <a name="about"></a>
-Meg Reed is a software engineer in the Berkeley, CA.
+Meg Reed is a software engineer in Berkeley, CA.
