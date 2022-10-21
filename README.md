@@ -28,7 +28,7 @@ Users can view a season and see if any castaways in that season appear in previo
 <img src="/static/images/readme/watch-rec1.gif" width="350" />
 
 ### Episode Analysis
-Users can analyze each episode of survivor with the aid of an arc diagram to reveal how each castaway voted that episode. Users can also analyze strongest alliances up to the selected episode by viewing the heat map that indicates how often two survivors voted together. In addition, greyed out images reveal the eliminated castaways for the selected episode.
+Users can analyze each episode of survivor with the aid of an arc diagram to reveal how each castaway voted that episode. Users can also analyze strongest alliances up to the selected episode by viewing the heat map that indicates how often two survivors voted together.
 
 <p float="left">
   <img src="/static/images/readme/arc-diagram1.gif" width="350" />
